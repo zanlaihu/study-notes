@@ -1,0 +1,85 @@
+---
+theme: smartblue
+---
+
+# 语法
+
+有了前两章的基础，就可以开始学习 ECMAScript 第 6 版的语法了。这章的内容特别少，但是我还是想把它独立出来。
+
+## 区分大小写
+
+ECMAScript 中的一切都需要区分大小写。
+
+比如，typeof 是一个关键字，不能作为函数名，但是 Typeof 就可以是有效的函数名。
+
+## 标识符
+
+标识符，就是变量、函数、属性、函数参数的名称。我们在命名变量的时候很少会遇到问题，但它其实也是有规则的。
+
+1. 第一个字符必须是一个字母、下划线（\_）或美元符号（$）
+2. 剩下的其他字符可以是字母、下划线、美元符号或数字
+
+标识符中的字母可以是扩展 ASCII 中的字母，也可以是 UNICODE 的字母。而 À 和 Æ 就不推荐使用。
+
+命名方法有很多种，其中驼峰式和 ECMAScript 内置函数和对象的命名方式一致，所以被推荐使用。
+
+## 注释
+
+有两种注释方法
+
+// 单行注释
+
+/\_ 多行
+
+注释 \_/
+
+## 严格模式
+
+ECMAScript5 增加了严格模式（strict mode）。它是一种不同的 JavaScript 解析和执行模型。
+
+启用严格模式，只要在脚本开头加上：
+
+“use strict”；
+
+虽然看上去好像一个多余的字符串，但是它其实是一个可以被解释器识别的预处理指令。任何支持 JavaScript 的引擎看到它都会切换到严格模式。在严格模式下，ECMAScript3 的一些不规范写法会被处理，对于不安全的活动也会抛出错误。
+
+也可以对单独的一个函数执行严格模式：
+
+```javascript
+function doSth() {
+  "use strict";
+}
+```
+
+## 语句
+
+ECMAScript 语句用分号结尾。也可以省略分号，那将由解析器来决定语句在哪里结尾。为了避免解析器段错句，强烈推荐要加上。
+
+## 关键字与保留字
+
+ECMA-262 描述了一组保留的关键字，这些关键字有特殊用途。
+||||||
+|--|--|--|--|--|
+|for|do|while|switch|case|
+|if|else|function|return|in|
+|try|catch|throw|break|continue|
+|var|const|new|this|class
+|instanceof|typeof|import|export|super|
+|debugger|finally|yield|default|delete|
+|static|extends|void|with|
+
+规范中还描述了一组未来的保留字。他们是保留给将来做关键字。其中
+
+始终保留:
+
+enum
+
+严格模式下保留：
+
+implements package public private
+
+interface protected static let
+
+模块代码中保留:
+
+await

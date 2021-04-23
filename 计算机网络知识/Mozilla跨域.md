@@ -1,0 +1,213 @@
+---
+theme: smartblue
+---
+# 跨域
+要了解跨域，首先要知道什么是同源。
+## 浏览器的同源策略
+
+同源策略是一个重要的安全策略，它用于限制某个源内的文档或它加载的脚本如何与另一个源的资源进行交互。
+
+
+> 这是Mozilla 对于同源策略的定义。
+>
+>事实上同源策略并没有一个统一的定义。即使是W3C，对它的描述亦是只有一句：“There is no single same-origin policy.”
+>
+> 同样，这篇文章下面的内容，也都是 Mozilla 对其的定义。
+
+## 同源的定义
+
+如果两个 URL 的 protocol、host、port 都相同的话，这两个 URL 是同源。
+
+这个方案也被成称为“协议/主机/端口 元组”，或简称“元组”。
+
+设备之间进行数据交互需要数据遵循一定的格式，规范这一格式的规则就叫 protocol（最常见的就是HTTP、HTTPS）。
+
+
+http://store.company.com/dir/page.html
+
+判断上面的例子和下面的网址是否同源：
+|URL|是否同源|原因|
+|---|---|---|
+|http://store.company.com/dir2/other.html|同源|只有路径不同|
+|http://store.company.com/dir/inner/another.html|同源|只有路径不同|
+|https://store.company.com/secure.html|失败|协议不同|
+|http://store.company.com:81/dir/etc.html|失败|端口不同 ( http:// 默认端口是 80)|
+|http://news.company.com/dir/other.html|失败|主机不同|
+
+一般浏览器都按这样的规则进行判定，其中IE有两个特殊点。
+
+### IE 认为：
+
+1. 授信范围（Trust Zones）：两个相互之间高度互信的域名，如公司域名（corporate domains），则不受同源策略限制。
+2. 端口：IE 未将端口号纳入到同源策略的检查中，因此 https://company.com:81/index.html 和 https://company.com/index.html 属于同源并且不受任何限制。
+## 源的更改
+
+源的更改方法已经被弃用，因为这违反了同源策略提供的安全保护，并且让浏览器的同源模型变得更为复杂。
+
+详情可询：https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#changing_origin
+
+## 源的继承
+
+“about:blank” 或 “javascript:URL” 执行的脚本会继承包含这个 URL 的文档所在源，因为这些类型的 URLs 不包含源服务器的信息。
+
+举个栗子，about:blank 经常作为一个新的、空白的弹出窗口的 URL（例如，使用 window.open()）。这个弹窗的脚本就继承创建这个弹窗的脚本所在的源。
+
+
+
+# 跨域网络访问
+
+同源策略控制不同源之间的交互。比如使用 XMLHttpRequest 或者\<img>。
+
+这些交互被分为三个种类：
+
+1. 跨域写操作(cross-origin writes)一般是允许的。比如链接、重定向、表单提交。（一些 HTTP 请求需要[preflight](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#preflighted_requests)）
+
+2. 跨域资源嵌入(cross-origin embedding)一般是允许的。
+3. 跨域读操作(cross-origin reads)一般是不允许的。但是并非一点办法都没有。比如嵌入图片的高度和宽度是可以被读取的，内嵌脚本的方法也可以被读取，嵌入资源的可用性[availability of an embedded resource](https://www.grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information)也可以被读取。
+
+### 来看一下跨域嵌入的例子：
+
+1. \<script src="...">\</script>嵌入跨域脚本。语法错误信息只在同源脚本中可见。
+2. \<link rel="stylesheet" href="…">嵌入跨域样式。由于 CSS 松散的语法规则，它跨域需要一个设置正确的 HTTP 头部 Content-Type。（不同浏览器还可能有不同的限制）
+3. 通过 \<iframe> 载入的任何资源。站点可以使用 X-Frame-Options 控制。但对其跨域读操作（比如使用JavaScript读取嵌入页面的文件）是不可以的。
+4. 通过 \<img> 展示的图片。支持的图片格式包括 PNG,JPEG,GIF,BMP,SVG。
+5. 通过 \<video> 和 \<audio> 播放的多媒体资源。
+6. 通过 \<object>、 \<embed> 和 \<applet> 嵌入的插件。
+7. 通过 @font-face 引入的字体。一些浏览器允许跨域字体（ cross-origin fonts），一些需要同源字体（same-origin fonts）。
+
+
+## 如何允许跨域
+
+通过跨域资源共享（CORS，Cross-Origin Resource Sharing）来允许跨域访问。CORS 是 HTTP 的一部分，它允许服务端来指定哪些主机可以从这个服务端加载资源。
+
+CORS 由一系列传输的 HTTP 头组成，这些 HTTP 头决定了浏览器是否允许前端 脚本获取跨域请求得到的回复。
+
+关于跨域资源共享的知识很多，我会单独再写一篇来介绍它。
+
+详情可询：https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
+## 如何阻止跨域
+
+
+1. 阻止跨域写操作：检测请求中的一个不可推测的标记 CSRF token（[Cross-Site Request Forgery](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)标记）。
+2. 阻止跨域读操作：需要保证这个资源不可嵌入。因为嵌入通常会暴露一些信息。
+3. 阻止跨域嵌入：需要保证你的资源不会由上述的嵌入方式被使用。浏览器可能不会遵守 Content-type 定义的类型，比如，如果 HTML 文档中指定了\<script>标记，浏览器会尝试将\<script>标签内部的 HTML 解析成 JavaScript。当资源不是网站入口点时，可以使用 CSRF token 来阻止嵌入。
+
+# 跨域 script API 访问
+
+JavaScript 的一些 API 允许文档间之间相互引用，比如 iframe.contentWindow, window.parent, window.open, and window.opener。
+当两个文档的源不同时，这些引用方式将对 Window 和 Location 对象的访问添加限制，如下两节所述。
+
+为了让不同源的文章进行交流，使用 window.postMessage
+
+## window
+
+以下对 window 的跨域访问是允许的。
+
+| 方法               |
+| ------------------ |
+| window.blur        |
+| window.close       |
+| window.focus       |
+| window.postMessage |
+
+| 属性            |       |
+| --------------- | ----- |
+| window.closed   | 只读  |
+| window.frames   | 只读  |
+| window.length   | 只读  |
+| window.location | 读/写 |
+| window.opener   | 只读  |
+| window.parent   | 只读  |
+| window.self     | 只读  |
+| window.top      | 只读  |
+| window.window   | 只读  |
+
+某些浏览器允许访问更多的属性。
+
+## Location
+
+允许以下对 Location 属性的跨域访问：
+|方法|
+|--|
+|location.replace|
+
+| 属性          |
+| ------------- |
+| URLUtils.href |
+
+## 跨域数据存储访问
+
+Web Storage 和 IndexedDB 这类数据存储在浏览器的不同源内。因为每个源都有它自己的一个独立的存储，所以在某一个源中的 JavaScript 无法读写存储在另一个源里的数据。
+
+Cookies 好不一样。一个页面可以为本域和它的父域设置 cookies，只要父域不是公告后缀（public suffix）。浏览器会允许给定的域以及其子域名（sub-domains）访问 cookies。设置 cookie 时，可以使用 Domain、Path、Secure、和 HttpOnly 标记来限定其可访问性。
+
+当读取 cookie 时，你无法知道它是在哪里被设置的。 即使您只使用安全的 https 连接，您看到的任何 cookie 都有可能是使用不安全的连接进行设置的。
+
+# 课后小练
+
+## 例1
+一个网页包含下面这个\<iframe>
+```html
+<iframe id="iframe" src="https://example.com/some-page.html" alt="Sample iframe"></iframe>
+```
+这个网页含有如下的脚本，是否可以获取内嵌页面的元素？
+```javascript
+const iframe = document.getElementById('iframe');
+const message = iframe.contentDocument.getElementById('message').innerText;
+```
+不可以。因为JavaScript不能读取不同域的嵌入页面内的内容。
+
+## 例2
+
+一个网页是否可以通过下面的表单进行跨域写操作：
+```html
+<form action="https://example.com/results.json">
+  <label for="email">Enter your email: </label>
+  <input type="email" name="email" id="email" required>
+  <button type="submit">Subscribe</button>
+</form>
+```
+
+可以。表单数据可以通过\<form>元素的action属性定义的URL进行跨域写操作。
+
+## 例3
+
+一个网页是否可以通过下面这个方式嵌入跨域页面？
+```html
+<iframe src="https://example.com/some-page.html" alt="Sample iframe"></iframe>
+```
+可以。只要资源供应者没有使用X-Frame-Options 头去  deny or sameorigin资源，就可以进行跨域嵌入。
+
+## 例4
+一个网页含有如下的canvas：
+```html
+<canvas id="bargraph"></canvas>
+```
+
+这个网页是否可以通过如下的方式在canvas上作画？
+```javascript
+var context = document.getElementById('bargraph').getContext('2d');
+var img = new Image();
+  img.onload = function() {
+  context.drawImage(img, 0, 0);
+};
+img.src = 'https://example.com/graph-axes.svg';
+```
+
+需要具体情况具体看。如果资源提供者给予这个图片合适的CORS头，它就可以被安全的作画。不然就会引发error。
+
+# 小结
+
+这篇内容主要来自火狐对于同源策略的定义。
+
+https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+
+它对于跨域的介绍仍旧浅显，并且文章的措辞造句上也有一些不太恰当的地方，我适当的按自己理解的意思去归纳了全文。在未来遇到跨域的更多问题的时候，我会再更新这篇文章。
+
+下面两个网址也给了很好的说明：
+
+https://www.w3.org/Security/wiki/Same_Origin_Policy
+
+https://web.dev/same-origin-policy/
+

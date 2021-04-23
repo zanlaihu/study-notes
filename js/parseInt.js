@@ -1,0 +1,1 @@
+var x = parseInt("10");  // 10

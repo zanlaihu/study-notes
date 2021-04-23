@@ -1,0 +1,4 @@
+// 不把数据share给angular team
+"cli": {
+    "analytics": false
+  }
