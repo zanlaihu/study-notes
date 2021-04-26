@@ -4,11 +4,11 @@ theme: smartblue
 
 # 对象
 
-ECMAScript 中的对象是一组数据和功能的无序集合。严格来说，这意味着对象就是一组没有特定顺序的值。对象的每个属性或方法都由一个名称来标识。可以把 ECMAScript 的对象想象成一张散列表，内容就是一组名/值对，值可以是数据或者函数。
+ECMAScript 中的对象是一组数据和功能的无序集合。它没有特定顺序。可以把 ECMAScript 的对象想象成一张散列表，内容就是一组名/值对，值可以是数据或者函数。
 
-## 创建对象
+# 创建对象
 
-对象可以通过 new 操作符创建。
+## new 操作符创建。
 
 ```javascript
 let person = new Object();
@@ -20,13 +20,13 @@ let person = new Object();
 let person = new Object(); // 合法，但不推荐
 ```
 
-还有下面这种最简单的方式也可以创建一个对象：
+## {}也可以创建对象：
 
 ```javascript
 let person = {};
 ```
 
-ECMAScript 中的 Object 是派生其他对象的基类。Object 类型的所有属性和方法在派生对象上同样存在。
+ECMAScript 中的 Object 是派生其他对象的基类。派生出的对象具有 Object 类型的所有属性和方法。
 
 每个 Object 实例都有如下属性和方法：
 
@@ -44,7 +44,7 @@ ECMAScript 中的 Object 是派生其他对象的基类。Object 类型的所有
 
 7. valueOf(): 返回对象对应的字符串、数值或布尔值。通常与 toString()的返回值相同。
 
-## 添加属性和方法
+# 添加属性和方法
 
 ```javascript
 let person = new Object();
@@ -55,11 +55,11 @@ person.sayName = function () {
 };
 ```
 
-这个例子创建名为 person 的对象，具有一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
+这个例子创建名为 person 的对象，并给他赋予了一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
 
 > 这里红宝书认为 sayname()是一个方法，而不是一个属性。因为它是和 name 分开说的。所以后面对属性的说明，应该也是不包括 sayname()在内。
 
-## 对象字面量
+# 对象字面量
 
 对象字面量是更加流行的用来创建对象的方式。前面的例子可以改成：
 
@@ -146,7 +146,7 @@ Object.defineProperty(person, "name", {
 
 访问器属性和数据属性不同，不能直接定义。
 
-> 然而增强的对象语法提供了一种简写方法：
+> 然而这句话似乎是说错了。因为在后面的内容出现直接定义访问器属性：
 >
 > ```javascript
 > let dest = {
