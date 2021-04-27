@@ -1,7 +1,5 @@
-const methodKey = 'sayName';
-let person = {
-  [methodKey](name) {
-    console.log(`My name is ${name}`);
-  }
+let i = {
+  a: '123'
 }
-person.sayName('Matt'); // My name is Matt
+
+console.log(i.a);

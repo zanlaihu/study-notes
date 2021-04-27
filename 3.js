@@ -1,26 +1,7 @@
-let example = {};
+let obj = {
+  a: '1',
+  b: '2',
+  c: '3'
+};
 
-Object.defineProperty(example, "name", {
-  value: "Klaus",
-});
-
-Object.defineProperties(example, {
-  getValue: {
-    get() {
-      return this.value;
-    },
-  },
-  year: {
-    value: "200",
-  },
-  getYear: {
-    get() {
-      return this.year;
-    },
-  },
-});
-
-console.log(example); // {}
-
-console.log(example.getValue); // undefined
-console.log(example.getYear); // 200
+console.log(Object.keys(obj)); // [ 'a', 'b', 'c' ]

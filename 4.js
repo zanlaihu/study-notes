@@ -1,18 +1,9 @@
-let person = {
-    name: 'Matt',
-    age: 27
+let obj = {
+  a: "1",
+  b: "2",
+  c: "3",
 };
-function printPerson(foo, { name, age }, bar) {
-    console.log(arguments);
-    console.log(name, age);
+
+for (let i in obj){
+    console.log(i,obj[i]);
 }
-function printPerson2(foo, { name: personName, age: personAge }, bar) {
-    console.log(arguments);
-    console.log(personName, personAge);
-}
-printPerson('1st', person, '2nd');
-// ['1st', { name: 'Matt', age: 27 }, '2nd']
-// 'Matt', 27
-printPerson2('1st', person, '2nd');
-    // ['1st', { name: 'Matt', age: 27 }, '2nd']
-    // 'Matt', 27
