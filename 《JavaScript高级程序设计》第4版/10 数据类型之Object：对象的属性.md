@@ -1,175 +1,261 @@
-# 合并对象
-
-合并（merge）对象，就是把源对象所有的本地属性一起复制到目标对象上。这种操作有时也被称为“混入”（mixin）。
-
-## Object.assign()
-
-这个方法接收一个目标对象和一个或多个源对象作为参数。每个源对象中可枚举（Object.propertyIsEnumerable()返回 true）和自有（Object.hasOwnProperty()返回 true）属性复制到目标对象。以字符串和符号为键的属性会被复制。每个符合条件的属性，这个方法会使用源对象上的[[Get]]取得属性的值，然后使用目标对象上的[[Set]]设置属性的值。
+# 添加属性和方法
 
 ```javascript
-let dest = {};
-let src = {
-  id: "src",
+let person = new Object();
+
+person.name = "Klaus";
+person.sayName = function () {
+  console.log(this.name);
+};
+```
+
+这个例子创建名为 person 的对象，并给他赋予了一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
+
+> 这里红宝书认为 sayname()是一个方法，而不是一个属性。因为它是和 name 分开说的。所以后面对属性的说明，应该也是不包括 sayname()在内。
+
+# 属性的类型
+
+属性有两种： 数据属性和访问器属性。
+
+ECMA-262 使用一些内部特性来描述属性。开发者不能在 JavaScript 中直接访问这些特性。规范用[[]]将特性标识为内部特性，比如[[Enumerable]]。
+
+## 数据属性
+
+数据属性包含一个保存数据值的位置。值会从这个位置读取，也会写入到这个位置。
+
+数据属性有 4 个特性：
+
+1. [[Configurable]]: 表示属性是否可以通过 delete 删除并重新定义，是否可以修改它的特性，是否可以把它改为访问器属性。默认情况为 true。
+2. [[Enumerable]]: 表示属性是否可以通过 for-in 循环返回。默认情况为 true。
+3. [[Writable]]: 表示属性的值是否可以被修改。默认情况为 true。
+4. [[Value]]: 包含属性实际的值。就是前面提到读取和写入属性值的位置。默认值是 undefined。
+
+像前面例子那样将属性显式地添加到对象之后，[[Configurable]]、[[Enumerable]]、[[Writable]]就会被设置为 true，[[value]]就是设置的值。比如之前的 name 属性，它的[[value]]就是“Klaus”。
+
+### Object.defineProperty()
+
+要添加非默认特性的数据属性，必须使用 Object.defineProperty()方法。
+
+Object.defineProperty()方法接收三个参数： 要添加属性的对象、属性名、描述符对象。描述符对象上的属性可以包含：configurable、enumerable、writable、value，用来设置值。它可以用来添加新属性，也可以用来修改原有属性。
+
+```javascript
+let person = {};
+
+Object.defineProperty{person, "name", {
+  writable: false,
+  value: "Klaus"
+}};
+
+person.name = "Mike" // 尝试修改
+console.log(person.name) // Klaus，值不会被修改
+```
+
+因为 name 属性的 writable 设置为 false 所以不可修改，并且在严格模式尝试修改一个不可修改的值，还会抛出错误。
+
+[[configurable]]更加特别。一旦设置为不可配置，甚至不能使用 Object.defineProperty()方法再对其进行修改。
+
+```javascript
+let person = {};
+
+Object.defineProperty(person, "name", {
+  configurable: false,
+  value: "Klaus",
+});
+
+// 试图修改已经是false的configurable
+Object.defineProperty(person, "name", {
+  configurable: true,
+  value: "Klaus",
+});
+// TypeError: Cannot redefine property: name
+```
+
+## 访问器属性
+
+访问器属性不包含数据值。他们包含一个获取 getter 函数和设置 setter 函数。
+
+在读取访问器属性时，会调用获取函数，这个函数会返回一个有效的值。再写入访问器属性时，会调用设置函数，并传入新值。
+
+访问器属性有四个特性：
+
+1. [[Configurable]]: 表示属性是否被 delete 并重新定义，是否可以修改它的特性，是否可以改为数据属性。默认为 true。
+2. [[Enumerable]]: 表示属性是否可以通过 for-in 循环返回。默认情况为 true。
+3. [[Get]]: 获取函数，读取属性时调用。默认为 undefined。
+4. [[Set]]: 设置函数，写入属性时调用。默认为 undefined。
+
+### 必须使用 Object.defineProperty()。
+
+访问器属性和数据属性不同，不能直接定义。
+
+> 然而这句话似乎是说错了。因为在后面的内容出现直接定义访问器属性：
+>
+> ```javascript
+> let dest = {
+>   year_: 0,
+>   set setYear(val) {
+>     this.year_ = val;
+>   },
+>   get gettingYear() {
+>     return this.year_;
+>   },
+> };
+> // 而且这样定义的访问器属性，是可以看到的。
+> console.log(dest);
+> //{ year_: 0, setYear: [Setter], >gettingYear: [Getter] }
+> ```
+
+### set()
+
+添加具有 set()特性的访问器属性：
+
+```javascript
+let person = {
+  age: 25,
+  older: 0,
 };
 
-let result = Object.assign(dest, src);
+Object.defineProperty(person, "changeAge", {
+  set(newValue) {
+    if (newValue > 28) {
+      this.age = newValue;
+      this.older = this.age - 25;
+    }
+  },
+});
 
-console.log(dest); //{ id: 'src' }
-
-// 虽然合并后值相同，但两个对象不等价
-console.log(dest !== src); // true
-
-// 但是result被认为和dest等价
-console.log(result === dest); //true
+person.changeAge = "29";
+console.log(person.older);
 ```
 
-面对多个源对象：
+这里定义了一个 changeAge 属性，并给它赋予了设置函数。接收到的值就是 changeAge，根据写好的逻辑它会改变 age 的值，而当 age 改变时，older 也会根据一定规则改变。这是访问器属性的典型使用场景。
+
+### get()
+
+添加具有 get()特性的访问器属性：
 
 ```javascript
-let dest = {};
-let result = Object.assign(dest, { a: "apple" }, { b: "pear" });
-console.log(result); // { a: 'apple', b: 'pear' }
-```
-
-对于获取函数与设置函数进行合并时就会发生问题：
-
-```javascript
-let dest = {
-  year_: 0,
-  set setYear(val) {
-    this.year_ = val;
-  },
-  get gettingYear() {
-    return this.year_;
-  },
+let person = {
+  age_: 25,
 };
 
-let src = {
-  year_: 0,
-  get getYear() {
-    return this.year_;
+Object.defineProperty(person, "getAge", {
+  get() {
+    return this.age;
   },
-};
+});
 
-Object.assign(dest, src);
-console.log(dest); // { year_: 0, setYear: [Setter], gettingYear: [Getter], getYear: 0 }
-console.log(dest.getYear); // 0
-
-dest.setYear = 2000;
-console.log(dest); // { year_: 2000, setYear: [Setter], gettingYear: [Getter], getYear: 0 }
-console.log(dest.getYear); // 0
-console.log(dest.gettingYear); // 2000
+console.log(person.getAge);
 ```
 
-合并进去的访问器属性 getYear，只能获取 src 内部的 year\_。即使合并到 dest 后成为 dest 的属性，对于 dest 中的 year\_的数值变化，并不敏感。
+age\_中的下划线表示这个属性不被外部访问。有的时候一些属性不想被外部访问，我们可以添加带有获取函数的属性来得到它。
 
-## 覆盖属性
+# 对象的属性的方法
 
-相同名称的属性在合并时，会被后来居上的覆盖。
+## Object.defineProperties()
+
+Object.defineProperties()方法可以一次性定义多个属性。
+
+它接收两个参数：对象、一个或多个描述符对象。
 
 ```javascript
-dest = { id: "dest" };
-result = Object.assign(
-  dest,
-  { id: "src1", a: "foo" },
-  { id: "src2", b: "bar" }
-);
-// Object.assign 会覆盖重复的属性
-console.log(result); // { id: src2, a: foo, b: bar }
+let book = {};
 
-// 可以通过目标对象上的设置函数观察到覆盖的过程：
-dest = {
-  set id(x) {
-    console.log(x);
+Object.defineProperties(book, {
+  year_: {
+    value: 2017,
   },
-};
-Object.assign(dest, { id: "first" }, { id: "second" }, { id: "third" });
-// first
-// second
-// third
-```
-
-这里其实也出现了设置函数这个特性的另一个使用办法，用来监听属性的变化。
-
-## 对象合并其实是一个浅复制
-
-```javascript
-dest = {};
-src = { a: {} };
-Object.assign(dest, src);
-// 浅复制意味着只会复制对象的引用
-console.log(dest); // { a :{} }
-console.log(dest.a === src.a); // true
-```
-
-这或许可以解答之前我遇到的问题。
-
-## 合并时出错怎么办
-
-如果赋值期间出错，则操作会中止并退出，同时抛出错误。Object.assign()没有“回滚”之前
-赋值的概念，因此它是一个尽力而为、可能只会完成部分复制的方法。
-
-```javascript
-let dest, src, result;
-/**
- * 错误处理
- */
-dest = {};
-src = {
-  a: "foo",
-  get b() {
-    // Object.assign()在调用这个获取函数时会抛出错误
-    throw new Error();
+  edition: {
+    value: 1,
   },
-  c: "bar",
-};
-try {
-  Object.assign(dest, src);
-} catch (e) {}
-// Object.assign()没办法回滚已经完成的修改
-// 因此在抛出错误之前，目标对象上已经完成的修改会继续存在：
-console.log(dest); // { a: foo }
+  year: {
+    get() {
+      return this.year_;
+    },
+    set(newValue) {
+      if (newValue > 2017) {
+        this.year_ = newValue;
+        this.edition += newValue - 2017;
+      }
+    },
+  },
+});
 ```
 
-# 对象标识及相等判定
+> 注意！！！用这个方法定义的数据属性，其 configurable、enumerable 和 writable 特性值默认情况下都是 false，比如 year 的 configurable、enumerable、writable 就会默认为 false，这个直接定义属性后特性默认为 true 不一样。
 
-在 ECMAScript 6 之前，有些特殊情况即使是===操作符也无能为力：
+## Object.defineProperty()和 Object.defineProperties()的一些问题
+
+看下面的例子：
 
 ```javascript
-// 这些是===符合预期的情况
-console.log(true === 1); // false
-console.log({} === {}); // false
-console.log("2" === 2); // false
-// 这些情况在不同JavaScript 引擎中表现不同，但仍被认为相等
-console.log(+0 === -0); // true
-console.log(+0 === 0); // true
-console.log(-0 === 0); // true
-// 要确定NaN 的相等性，必须使用极为讨厌的isNaN()
-console.log(NaN === NaN); // false
-console.log(isNaN(NaN)); // true
+let example = {};
+
+Object.defineProperty(example, "name", {
+  value: "Klaus",
+});
+
+Object.defineProperties(example, {
+  getValue: {
+    get() {
+      return this.value;
+    },
+  },
+  year: {
+    value: "200",
+  },
+  getYear: {
+    get() {
+      return this.year;
+    },
+  },
+});
+
+console.log(example); // {}
+
+console.log(example.getValue); // undefined
+console.log(example.getYear); // 200
 ```
 
-为改善这类情况，ECMAScript 6 规范新增了 Object.is()，这个方法与===很像，但同时也考虑
-到了上述边界情形。这个方法必须接收两个参数：
+虽然已经使用 Object.defineProperty()和 Object.defineProperties()为 example 添加了那么多属性，但是 console 的结果还是“{}”一个空对象。并且后面添加的访问器 getValue()无法获取到之前添加的属性 value 的值。
+
+## Object.getOwnPropertyDescriptor()
+
+Object.getOwnPropertyDescriptor()方法可以取得指定属性的属性描述符。
+
+Object.getOwnPropertyDescriptor()方法接收两个参数：属性所在的对象、属性名。返回值是一个对象，访问器属性包含 configurable、enumerable、get、set，数据属性包含 configurable、enumerable、writable、value。
 
 ```javascript
-console.log(Object.is(true, 1)); // false
-console.log(Object.is({}, {})); // false
-console.log(Object.is("2", 2)); // false
-// 正确的0、-0、+0 相等/不等判定
-console.log(Object.is(+0, -0)); // false
-console.log(Object.is(+0, 0)); // true
-console.log(Object.is(-0, 0)); // false
-// 正确的NaN 相等判定
-console.log(Object.is(NaN, NaN)); // true
-```
+let book = {};
+Object.defineProperties(book, {
+  year_: {
+    value: 2017,
+  },
+  edition: {
+    value: 1,
+  },
+  year: {
+    get() {
+      return this.year_;
+    },
+    set() {
+      if (newValue > 2017) {
+        this.year_ = newValue;
+        this.edition += newValue - 2017;
+      }
+    },
+  },
+});
 
-要检查超过两个值，递归地利用相等性传递即可：
-
-```javascript
-function recursivelyCheckEqual(x, ...rest) {
-  return (
-    Object.is(x, rest[0]) && (rest.length < 2 || recursivelyCheckEqual(...rest))
-  );
-}
+let descriptor = Object.getOwnPropertyDescriptor(book, "year_");
+console.log(descriptor.configurable); // false
+console.log(descriptor.enumerable); // false
+console.log(descriptor.writable); // false
+console.log(descriptor.value); // 2017
+console.log(typeof descriptor.get); // "undefined"
+let descriptor2 = Object.getOwnPropertyDescriptor(book, "year");
+console.log(descriptor2.configurable); // false
+console.log(descriptor2.enumerable); // false
+console.log(descriptor2.writable); // undefined
+console.log(descriptor2.value); // undefined
+console.log(typeof descriptor2.get); // "function"
 ```
