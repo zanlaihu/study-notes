@@ -259,23 +259,3 @@ console.log(descriptor2.writable); // undefined
 console.log(descriptor2.value); // undefined
 console.log(typeof descriptor2.get); // "function"
 ```
-
-# Object
-
-ECMAScript 中的 Object 是派生其他对象的基类。派生出的对象具有 Object 类型的所有属性和方法。
-
-每个 Object 实例都有如下属性和方法：
-
-1. constructor: 用于创建当前对象的函数。在前面的例子中，这个属性的值就是 Object()函数。
-
-2. hasOwnProperty(propertyName):用于判断当前对象实例（不是原型）上是否存在给定的属性。要检查的属性名必须是字符串（如 0.hasOwnProperty("name")）或符号。
-
-3. isPrototypeOf(object): 用于判断当前对象是否是另一个对象的原型。
-
-4. propertyIsEnumerable(propertyName): 用于判断给定的属性是否可以使用 for-in 语句枚举。与 hasOwnProperty()一样，属性名必须是字符串。
-
-5. toLocaleString(): 返回对象的字符串表示，该字符串反映对象所在的本地化执行环境。
-
-6. toString(): 返回对象的字符串表示。
-
-7. valueOf(): 返回对象对应的字符串、数值或布尔值。通常与 toString()的返回值相同。
