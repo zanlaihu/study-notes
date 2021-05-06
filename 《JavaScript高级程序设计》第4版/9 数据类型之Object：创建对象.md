@@ -185,15 +185,17 @@ Person.call(o, "Kristen", 25, "Nurse");
 o.sayName(); // "Kristen"
 ```
 
-作为普通函数调用时，结果会将属性和方法添加到 window 对象。
+作为普通函数调用时，会将属性和方法添加到 window 对象。
 
 在调用一个函数而没有明确设置 this 值的情况下（即没有作为对象的方法调用，或者没有使用 call()/apply()调用），this 始终指向 Global 对象（在浏览器中就是 window 对象）。所以 window 对象上就有了一个 sayName()方法。
 
 最后展示的调用方式是通过 call()（或 apply()）将特定对象指定为作用域。这里的调用将对象 o 指定为 Person()内部的 this 值，因此执行完函数代码后，所有属性和 sayName()方法都会添加到对象 o 上面。
 
-# 构造函数的问题
+## 构造函数的问题
 
-构造函数定义的方法会在每个实例上都创建一遍。使用上面 Person()构造函数创建的实例都有 sayname()方法，但是不同实例的 sayname()方法并不是同一个 function 实例。因为构造函数实际上是这样：
+构造函数定义的方法会在每个实例上都创建一遍。使用上面 Person()构造函数创建的实例都有 sayname()方法，但是不同实例的 sayname()方法并不是同一个。
+
+因为构造函数实际上是这样：
 
 ```javascript
 function Person(name, age, job) {
@@ -202,15 +204,15 @@ function Person(name, age, job) {
 }
 ```
 
-所以每个实例都有自己的 Function 实例用于显示 name。如果用 Person()构造函数创建实例 person1 和 person2。那么
+所以每个实例都有自己的 Function 实例。如果用 Person()构造函数创建实例 person1 和 person2,那么这两个 sayName 是不全等的：
 
 ```javascript
 console.log(person1.sayName == person2.sayName); // false
 ```
 
-那么问题在哪里呢？问题出在其实不需要定义两个不同的 Function 实例。而且，this 对象可以把函数与对象的绑定推迟到运行时。
+我们不需要定义两个不同的 Function 实例。
 
-可以把函数定义转移到构造函数外部：
+因为 this 对象可以把函数与对象的绑定推迟到运行时，可以把函数定义转移到构造函数外部：
 
 ```javascript
 function Person(name, age, job) {
@@ -223,9 +225,9 @@ function sayName() {
 }
 ```
 
-这里的 sayName()函数是全局作用域上的函数，而 Person 中的 sayName 数学包含的是指向外部函数的指针。
+这里的 sayName()函数是全局作用域上的函数，而 Person 中的 sayName 包含的是指向外部函数的指针。
 
-但是这个如果需要多个方法，就要在全局作用域定义多个函数。这会导致代码不能很好地聚集在一起。这个新问题可以用原型模式解决。
+但是如果需要多个方法，就要在全局作用域定义多个函数。这会导致代码不能很好地聚集在一起。这个新问题可以用原型模式解决。
 
 # 原型模式
 
