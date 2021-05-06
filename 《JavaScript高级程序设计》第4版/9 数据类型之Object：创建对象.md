@@ -234,3 +234,43 @@ function sayName() {
 每个函数都会创建一个 prototype 属性，这个属性是一个对象，包含应该由特定引用类型的实例共享的属性和方法。这个对象就是通过调用构造函数创建的对象的原型。
 
 使用原型对象的好处是，在它上面定义的属性和方法可以被对象实例共享。在构造函数中赋值给对象实例的值，可以直接赋值给它们的原型。
+
+```javascript
+function Person() {}
+
+Person.prototype.name = "Klaus";
+Person.prototype.sayName = function () {
+  console.log(this.name);
+};
+
+let person1 = new Person();
+```
+
+使用原型模式创建的 person1 和 person2：
+
+```
+console.log(person1.sayName == person2.sayName); // true
+```
+
+function Person(){} 也可以写成：
+
+```
+let Person = function(){}；
+```
+
+所有属性和方法都直接添加到 Person 的 prototype 属性上，构造函数体内什么也没有。与构造函数不同，
+
+## 原型模式和构造函数模式可以配合使用
+
+```
+function Person(){
+    this.name = "Amy";
+};
+
+Person.prototype.sayName = function(){
+    console.log(this.name);
+};
+
+let person1 = new Person();
+person1.sayName(); // Klaus
+```
