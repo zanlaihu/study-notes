@@ -26,6 +26,21 @@ let person = new Object(); // 合法，但不推荐
 let person = {};
 ```
 
+## 使用“对象字面量”创建对象
+
+对象字面量是更加流行的用来创建对象的方式。前面的例子可以改成：
+
+```javascript
+let person = {
+  name: "Klaus",
+  sayName() {
+    console.log(this.name);
+  },
+};
+```
+
+# Object
+
 ECMAScript 中的 Object 是派生其他对象的基类。派生出的对象具有 Object 类型的所有属性和方法。
 
 每个 Object 实例都有如下属性和方法：
@@ -58,19 +73,6 @@ person.sayName = function () {
 这个例子创建名为 person 的对象，并给他赋予了一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
 
 > 这里红宝书认为 sayname()是一个方法，而不是一个属性。因为它是和 name 分开说的。所以后面对属性的说明，应该也是不包括 sayname()在内。
-
-# 对象字面量
-
-对象字面量是更加流行的用来创建对象的方式。前面的例子可以改成：
-
-```javascript
-let person = {
-  name: "Klaus",
-  sayName() {
-    console.log(this.name);
-  },
-};
-```
 
 # 属性的类型
 
