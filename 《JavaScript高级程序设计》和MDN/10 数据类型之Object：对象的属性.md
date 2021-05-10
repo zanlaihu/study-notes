@@ -11,8 +11,6 @@ person.sayName = function () {
 
 这个例子创建名为 person 的对象，并给他赋予了一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
 
-> 这里红宝书认为 sayname()是一个方法，而不是一个属性。因为它是和 name 分开说的。所以后面对属性的说明，应该也是不包括 sayname()在内。
-
 # 属性的类型
 
 属性有两种： 数据属性和访问器属性。
@@ -149,7 +147,7 @@ console.log(person.getAge);
 
 age\_中的下划线表示这个属性不被外部访问。有的时候一些属性不想被外部访问，我们可以添加带有获取函数的属性来得到它。
 
-# 对象的属性的方法
+# 对象的属性方法
 
 ## Object.defineProperties()
 
