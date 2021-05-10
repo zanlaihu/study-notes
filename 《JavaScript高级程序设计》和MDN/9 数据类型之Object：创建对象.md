@@ -260,7 +260,9 @@ let Person = function(){}；
 
 ## 理解原型
 
-只要创建函数，就会为这个函数创建 prototype 属性（指向原型对象）。所有原型对象自动获得一个 constructor 属性，指回与之关联的构造函数。就前面的例子来说，Person.prototype.constructor 指向 Person。
+新创建的对象具有 prototype 属性，指向原型对象。
+
+原型对象具有 constructor 属性，指回与之关联的构造函数。Person.prototype.constructor 指向 Person()。
 
 ## 原型模式和构造函数模式可以配合使用
 
