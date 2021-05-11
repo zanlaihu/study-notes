@@ -1,11 +1,7 @@
-function Person(){
-    this.name = "Amy";
-};
+let message = 'Alex';
 
-Person.prototype.sayName = function(){
-    console.log(this.name);
-};
+// 大写化
+console.log(message.toUpperCase());
 
-let person1 = new Person();
-person1.sayName();
-
+// 小写化
+console.log(message.toLowerCase());
