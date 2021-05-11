@@ -1,7 +1,8 @@
-let message = 'Alex';
+let window = {
+    logo: "apple",
+    system: "macOS",
+};
 
-// 大写化
-console.log(message.toUpperCase());
-
-// 小写化
-console.log(message.toLowerCase());
+for (const propName of window) {
+    console.log(propName);
+}
