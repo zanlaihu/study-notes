@@ -1,49 +1,3 @@
----
-theme: smartblue
----
-
-# 对象
-
-ECMAScript 中的对象是一组数据和功能的无序集合。它没有特定顺序。可以把 ECMAScript 的对象想象成一张散列表，内容就是一组名/值对，值可以是数据或者函数。
-
-# 创建对象
-
-## new 操作符创建。
-
-```javascript
-let person = new Object();
-```
-
-在没有参数的情况下，也可以省略括号：
-
-```javascript
-let person = new Object(); // 合法，但不推荐
-```
-
-## {}也可以创建对象：
-
-```javascript
-let person = {};
-```
-
-ECMAScript 中的 Object 是派生其他对象的基类。派生出的对象具有 Object 类型的所有属性和方法。
-
-每个 Object 实例都有如下属性和方法：
-
-1. constructor: 用于创建当前对象的函数。在前面的例子中，这个属性的值就是 Object()函数。
-
-2. hasOwnProperty(propertyName):用于判断当前对象实例（不是原型）上是否存在给定的属性。要检查的属性名必须是字符串（如 0.hasOwnProperty("name")）或符号。
-
-3. isPrototypeOf(object): 用于判断当前对象是否是另一个对象的原型。
-
-4. propertyIsEnumerable(propertyName): 用于判断给定的属性是否可以使用 for-in 语句枚举。与 hasOwnProperty()一样，属性名必须是字符串。
-
-5. toLocaleString(): 返回对象的字符串表示，该字符串反映对象所在的本地化执行环境。
-
-6. toString(): 返回对象的字符串表示。
-
-7. valueOf(): 返回对象对应的字符串、数值或布尔值。通常与 toString()的返回值相同。
-
 # 添加属性和方法
 
 ```javascript
@@ -56,21 +10,6 @@ person.sayName = function () {
 ```
 
 这个例子创建名为 person 的对象，并给他赋予了一个属性 name 和一个方法 sayname()。sayname()会显示 this.name 的值，这个属性会被解析为 person.name。
-
-> 这里红宝书认为 sayname()是一个方法，而不是一个属性。因为它是和 name 分开说的。所以后面对属性的说明，应该也是不包括 sayname()在内。
-
-# 对象字面量
-
-对象字面量是更加流行的用来创建对象的方式。前面的例子可以改成：
-
-```javascript
-let person = {
-  name: "Klaus",
-  sayName() {
-    console.log(this.name);
-  },
-};
-```
 
 # 属性的类型
 
@@ -208,7 +147,7 @@ console.log(person.getAge);
 
 age\_中的下划线表示这个属性不被外部访问。有的时候一些属性不想被外部访问，我们可以添加带有获取函数的属性来得到它。
 
-# 对象的属性的方法
+# 对象的属性方法
 
 ## Object.defineProperties()
 
