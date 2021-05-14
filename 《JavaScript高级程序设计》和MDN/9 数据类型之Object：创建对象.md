@@ -258,23 +258,55 @@ let Person = function(){}；
 
 所有属性和方法都直接添加到 Person 的 prototype 属性上，构造函数体内什么也没有。
 
-## 理解原型
+### 原型模式和构造函数模式可以配合使用
 
-新创建的对象具有 prototype 属性，指向原型对象。
+```javascript
+function Person() {
+  this.name = "Amy";
+}
 
-原型对象具有 constructor 属性，指回与之关联的构造函数。Person.prototype.constructor 指向 Person()。
-
-## 原型模式和构造函数模式可以配合使用
-
-```
-function Person(){
-    this.name = "Amy";
-};
-
-Person.prototype.sayName = function(){
-    console.log(this.name);
+Person.prototype.sayName = function () {
+  console.log(this.name);
 };
 
 let person1 = new Person();
 person1.sayName(); // Klaus
 ```
+
+## 理解原型
+
+构造函数具有 prototype 属性，指向原型对象。
+
+原型对象具有 constructor 属性，指回与之关联的构造函数。
+
+比如：Person.prototype.constructor 指向 Person()。
+
+在定义构造函数时，会产生一个原型对象。一开始这个原型对象只有 constructor 属性，其他都继承自 Object。
+
+创建实例时，实例内部的 prototype 指向原型对象。所以，实例和原型之间有直接联系，实例和构造函数没有联系。
+
+```javascript
+function Person() {}
+
+console.log(typeof Person.prototype); // object
+console.log(Person.prototype); // Person {}
+
+console.log(Person.prototype.constructor === Person); // true
+
+// 正常的原型链都会终止于Object的原型对象
+// Object原型的原型是null
+console.log(Person.prototype.__proto__ === Object.prototype);
+console.log(Person.prototype.__proto__.constructor === Object);
+console.log(Person.prototype.__proto__.__proto__ === null);
+
+console.log(Object.prototype);
+// {
+// constructor: f Object(),
+// toString: ...
+// hasOwnProperty: ...
+// isPrototypeOf: ...
+// ...
+// }
+```
+
+## 原型层级
