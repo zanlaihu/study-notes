@@ -12,8 +12,6 @@ instanceof 判断是否是对象类型，返回 true
 
 5\*\*2 等于 math.pow(5,2) js 的次方运算
 
-
-
 ### 数字
 
 始终是双精度浮点数
@@ -26,21 +24,9 @@ var x = 0.2 + 0.1; // x 将是 0.30000000000000004
 解决方法：
 var x = (0.2 _ 10 + 0.1 _ 10) / 10; // x 将是 0.3
 
-NaN 非数值，类型是 number:
-var x = 100 / "Apple"; // x 将是 NaN（Not a Number）
-
-可以使用 isNaN()来确定某个值是否是数。
-
-infinity(-infinity)超出最大可能数范围时返回的值，类型是 number:
-
 十六进制
 JavaScript 会把前缀为 0x 的数值常量解释为十六进制。
 var x = 0xFF; // x 将是 255
 
 绝不要用前导零写数字（比如 07）。
 一些 JavaScript 版本会把带有前导零的数解释为八进制。
-
-# 集合
-
-const s = new Set();
-[2,3,5,4,5,2,2].forEach(x => s.add(x));
