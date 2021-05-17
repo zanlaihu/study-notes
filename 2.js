@@ -1,10 +1,13 @@
-let str = "abcde";
+class Polygon {
+  constructor(height, width) {
+    this.area = height * width;
+  }
 
-str.slice(1,2);
+  printArea() {
+    console.log(this.area);
+  }
+}
 
-console.log(str.slice(1,2));
-console.log(str.slice(1,2));
-
-// console.log(str.slice(1,2));
-
-// console.log(str.slice(2));
+console.log(new Polygon(4, 3).area);
+let p = new Polygon(4, 5);
+p.printArea();
