@@ -1,11 +1,8 @@
-function Person(){
-    this.name = "Amy";
+let window = {
+    logo: "apple",
+    system: "macOS",
 };
 
-Person.prototype.sayName = function(){
-    console.log(this.name);
-};
-
-let person1 = new Person();
-person1.sayName();
-
+for (const propName of window) {
+    console.log(propName);
+}

@@ -1,5 +1,10 @@
-let i = {
-  a: '123'
-}
+let str = "abcde";
 
-console.log(i.a);
+str.slice(1,2);
+
+console.log(str.slice(1,2));
+console.log(str.slice(1,2));
+
+// console.log(str.slice(1,2));
+
+// console.log(str.slice(2));
