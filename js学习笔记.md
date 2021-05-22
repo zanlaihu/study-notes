@@ -1,14 +1,8 @@
-button 标签的 type 有三个值：submit、button、reset。
-IE 浏览器的默认类型是 button，其他浏览器的默认值是 submit。
-所以使用 button 时应明确 type 属性。
-
 # js 三种输出方式：
 
 getElementById
 window.alert()
 document.write() 在 html 文档完全加载后使用会删除所有已有的 html。
-
-instanceof 判断是否是对象类型，返回 true
 
 5\*\*2 等于 math.pow(5,2) js 的次方运算
 
