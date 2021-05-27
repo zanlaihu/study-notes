@@ -1,0 +1,25 @@
+.example {
+  padding: 10px 5px 15px 20px;
+  /* 上填充是 10px
+右填充是 5px
+下填充是 15px
+左填充是 20px */
+}
+
+.example1 {
+  padding: 10px 5px 15px;
+  /* 上填充是 10px
+右填充和左填充是 5px
+下填充是 15px */
+}
+
+.example2 {
+  padding: 10px 5px;
+  /* 上填充和下填充是 10px
+右填充和左填充是 5px */
+}
+
+.example3 {
+  padding: 10px;
+  /* 所有四个填充都是 10px */
+}
