@@ -14,14 +14,11 @@ theme: smartblue
 - type：可选。替代 language，表示代码块中 JavaScript 语言的内容类型（也叫 MINE 类型）。按照惯例，始终是“text/javascript”（尽管“text/javascript”和“text/ecmascript”已经被废弃）。JavaScript 文件的 MINE 类型通常是“application/x-javascript”，不过这个值有可能导致 JavaScript 被忽略。在非 IE 的浏览器中有效的 MINE 值还有“application/javascript”和“application/ecmascript”。如果这个值是 module，则代码会被当成 ES6 模块，代码中运行使用 import 和 export 关键字。
 - integrity：可选。允许比对接收到的资源的签名与指定的加密签名以验证子资源完整性（SRI，Subresource Integrity）。如果不匹配则页面报错，JavaScript 不执行。这个属性可以确保内容分发网络（CDN，Content Delivery Network）不会提供恶意内容。
 - charset：可选。使用 src 属性指定的代码字符集。大多数浏览器不在乎它的值，所以很少被使用。
-
 - crossorigin：可选。配置相关请求的 CORS（跨源资源共享）设置。默认不使用 CORS。crossorigin="use-credentials"意思是设置凭据标志，这样出站请求会包含凭据。crossorigin="anonymous"意思是配置文件请求不必设置凭据标志。
 
 # 如何使用\<script>
 
-直接在网页中嵌入，或引入外部 JavaScript 文件。
-
-直接嵌入：
+1.直接在网页中嵌入：
 
 ```html
 <script>
