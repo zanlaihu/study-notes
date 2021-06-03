@@ -51,7 +51,7 @@ theme: smartblue
 </script>
 ```
 
-#### 引入外部 JavaScript。添加 src 再加上文件 url。
+2.引入外部 JavaScript
 
 ```html
 <script src="example.js"></script>
@@ -91,7 +91,6 @@ Content-Security-Policy: require-sri-for style;
 ```
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" 
   integrity="sha384-xyZLiqnBEFn1hDkS8VeG/YHoqOjS/ucimT8TI6GDr9+ZP1UNbZr6d/q0ldMi/xvL" crossorigin="anonymous">
-浏览器支持： 只有chrome，firfox实现，safari，IE都未实现。
 
 >关于Content-Security-Policy更多信息，可访问阮一峰对CSP的讲解：
 >http://www.ruanyifeng.com/blog/2016/09/csp.html
@@ -141,7 +140,7 @@ defer也会告诉浏览器立刻下载脚本。但是浏览器不必等脚本下
 
 ## 动态加载脚本
 
-JavaScript通过使用DOM API，可以向DOM中动态添加script元素，从而加载脚本。通过下面的代码
+使用document.createElement，可以向DOM中动态添加script元素：
 ```JavaScript
 let script = document.createElement('script');
 script.src = 'gibberish.js';
@@ -149,7 +148,7 @@ document.head.appendChiled(script);
 ```
 在把HTMLElement元素添加到DOM且执行这段代码之后，请求才被发送。
 
-这种方式创建的脚本默认是异步加载。但有些浏览器不支持async。所以可以按下面这样明确其为同步加载
+这种方式创建的脚本默认是异步加载。如果有些浏览器不支持异步，可以明确其为同步加载：
 ```javascript
 let script = document.createElement('script');
 script.src = 'gibberish.js';
