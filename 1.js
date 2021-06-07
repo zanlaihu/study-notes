@@ -1,26 +1,34 @@
-class Play {
-    constructor(height, width){
-        this.square = height*width;
-    }
-}
+// 选取所有元素
+$("*")
 
-class Square extends Play {
-    constructor(length){
-        super(length,length);
-        this.result = length;
-        this.squareResult = this.square;
-    }
+// 选取当前元素
+$(this)
 
-    printResult(){
-        console.log(this.squareResult);
-    }
-}
+// 选取class为intro的<p>元素
+$("p.intro")
 
-console.log(new Play(3,4).square); // 12
+// 选取第一个<p>元素
+$("p:first")
 
-console.log(new Square(3).square); // 9
+// 选取第一个<ul>元素的第一个<li>元素
+$("ul li:first")
 
-console.log(new Square(4).squareResult); // 16
+// 选取每一个<ul>元素的第一个<li>元素
+$("ul li:first-child")
 
-let s = new Square(5);
-s.printResult(); // 25
+// 选取带有href属性的元素
+$("[href]")
+
+// 选取所有target属性为“_blank”的<a>元素
+$("a[target='_blank']")
+
+// 选取所有target属性不为“_blank”的<a>元素
+$("a[target!='_blank']")
+
+// 选取所有type="button"的<input>元素和<button>元素
+$(":button")
+
+// 选取偶数位置的<tr>元素
+$("tr:even")
+
+// 选取
