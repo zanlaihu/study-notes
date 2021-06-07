@@ -280,9 +280,6 @@ for (const value of [1, 2, 3, 4, 5]) {
 
 ECMAScript6 增加 let 和 const 支持更精确地声明作用域和语义。
 
-天下苦 var 久矣，
-是时候抛弃它了。
-
 ### 1. 不使用 var
 
 有了 let 和 const 之后，var 已经不再被需要。Eslint 代码规范，也要求开发者不要使用 var，并添加了将 var 自动转变成 let 或 const 的功能。

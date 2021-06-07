@@ -47,7 +47,7 @@ console.log(message); // undefined
 
 ```javascript
 // age 没有被声明
-console.log(age); // undefined
+console.log(age); // 也是undefined，只是会报错
 ```
 
 但后者使用中是会报错的。
