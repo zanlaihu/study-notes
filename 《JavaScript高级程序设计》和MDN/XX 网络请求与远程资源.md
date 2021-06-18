@@ -36,6 +36,10 @@ xhr.send();
 
 这个代码向 example.php 发送一个同步的 GET 请求。这里的 URL 相对于代码所在的位置。调用 open()不会发送实际请求，只是为发送请求做好准备。
 
-调用 send()方法，才将请求发送给服务器。
+调用 send()方法，才将请求发送给服务器。send()方法接收一个参数，作为请求体发送的数据。如果不需要请求体，则必须传 null。
 
-send()方法接收一个参数，作为请求体。如果不需要请求体，则必须传 null。
+因为这个请求是同步的，所以 JavaScript 代码会等待服务器响应之后再继续执行。收到响应后，XHR 对象的以下属性会被填充上数据：
+responseText: 作为响应体返回的文本。
+responseXML: 如果响应的内容类型是"text/xml"或"application/xml"，那就是包含响应数据的 XML DOM 文档。
+status：响应的 HTTP 状态。
+statusText：响应的 HTTP 状态描述。
