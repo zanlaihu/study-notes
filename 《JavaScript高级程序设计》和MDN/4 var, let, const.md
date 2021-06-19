@@ -1,6 +1,3 @@
----
-theme: smartblue
----
 
 # 变量声明
 
