@@ -1,11 +1,5 @@
 # 网络请求与远程资源
 
-1. XMLHttpRequest 对象
-2. XMLHttpRequest 事件
-3. 源域 Ajax 限制
-4. Fetch API
-5. Streams API
-
 2005 年，Jesse Jasmes Garrett 撰写了《Ajax——A New Approach to Web Applications》，描绘 Ajax(Asynchronous JavaScript + XML),它可以向服务器发送请求且不刷新页面，从而实现更好的用户体验。Ajax 这个名称包含 XML，但 Ajax 通信与数据格式无关，格式不一定是 XML。
 
 在 Ajax 之前存在类似的技术，称为远程脚本。JavaScript 对服务器的请求可以通过中介（Java 小程序或 flash）发送。后来 XHR 对象(XMLHttpRequest 对象)为开发者提供了原生的浏览器通信能力。它的出现将 Ajax 推上了历史的舞台。
