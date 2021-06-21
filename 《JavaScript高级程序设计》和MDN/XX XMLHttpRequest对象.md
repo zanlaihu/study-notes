@@ -1,8 +1,10 @@
-# 网络请求与远程资源
+# AJAX
 
-2005 年，Jesse Jasmes Garrett 撰写了《Ajax——A New Approach to Web Applications》，描绘 Ajax(Asynchronous JavaScript + XML),它可以向服务器发送请求且不刷新页面，从而实现更好的用户体验。Ajax 这个名称包含 XML，但 Ajax 通信与数据格式无关，格式不一定是 XML。
+2005 年，Jesse Jasmes Garrett 撰写的《Ajax——A New Approach to Web Applications》描绘了 Ajax，它可以向服务器发送请求且不刷新页面。
 
-在 Ajax 之前存在类似的技术，称为远程脚本。JavaScript 对服务器的请求可以通过中介（Java 小程序或 flash）发送。后来 XHR 对象(XMLHttpRequest 对象)为开发者提供了原生的浏览器通信能力。它的出现将 Ajax 推上了历史的舞台。
+Ajax 的名称包含 XML，但 Ajax 通信与数据格式格式不一定是 XML。
+
+在 Ajax 之前也存在类似的技术，称为远程脚本。JavaScript 对服务器的请求可以通过中介（Java 小程序或 flash）发送。后来 XHR 对象(XMLHttpRequest 对象)为开发者提供了原生的浏览器通信能力。它的出现将 Ajax 推上了历史的舞台。
 
 微软最早发明了 XHR 对象，而后被其他厂商借鉴。在它出现之前，类似 Ajax 的通信必须使用黑科技，比如隐藏的窗格或内嵌窗格。
 
@@ -60,7 +62,7 @@ if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
 
 前面使用了同步，但是异步是更好的选择，这样可以不阻塞 JavaScript。XHR 对象具有 readyStatus 属性，表示当前处在请求/响应过程的哪个阶段：
 | 值 | 阶段 | 意义 |
-| --- | ------------- | ---------------------------- |
+| --| ------------- | -- |
 | 0 | Uninitialized | 未调用 open()方法 |
 | 1 | Open | 已调用 open()，未调用 send() |
 | 2 | Sent | 已调用 send()，未收到响应 |
@@ -88,15 +90,60 @@ xhr.open("get", "example.txt", true);
 xhr.send(null);
 ```
 
-以上代码使用DOM Level0风格为XHR对象添加了事件处理程序，因为并不是所有浏览器都支持DOM Level2风格。与其他事件处理程序不同，onreadystatechange事件不会收到event对象。在事件处理程序中，必须使用XHR对象本身来确定接下来该做什么。
+以上代码使用 DOM Level0 风格为 XHR 对象添加了事件处理程序，因为并不是所有浏览器都支持 DOM Level2 风格。与其他事件处理程序不同，onreadystatechange 事件不会收到 event 对象。在事件处理程序中，必须使用 XHR 对象本身来确定接下来该做什么。
 
-由于onreadystatechange事件处理程序的作用域问题，这个例子使用XHR对象而不是this对象。使用this可能导致功能失败或导致错误，取决于用户的浏览器。保险起见，使用XHR对象更好。
+由于 onreadystatechange 事件处理程序的作用域问题，这个例子使用 XHR 对象而不是 this 对象。使用 this 可能导致功能失败或导致错误，取决于用户的浏览器。保险起见，使用 XHR 对象更好。
 
-在收到响应之前如果想取消异步请求，可以使用abort()：
+在收到响应之前如果想取消异步请求，可以使用 abort()：
+
 ```
 xhr.abort();
 ```
-调用这个方法后，XHR对象会停止触发事件，并阻止访问这个对象上任何与响应相关的属性。中断请求后，应该取消对XHR对象的引用。由于内存问题，不推荐重用XHR对象。
 
-# HTTP头部
+调用这个方法后，XHR 对象会停止触发事件，并阻止访问这个对象上任何与响应相关的属性。中断请求后，应该取消对 XHR 对象的引用。由于内存问题，不推荐重用 XHR 对象。
 
+# HTTP 头部
+
+每个 HTTP 请求和响应都会携带头部字段：
+
+- Accept：浏览器可以处理的内容类型。
+- Accept-Charset：浏览器可以显示的字符集。
+- Accept-Encoding：浏览器可以处理的压缩编码类型。
+- Accept-Language：浏览器使用的语言。
+- Connection：浏览器与服务器的连接类型。
+- Cookie：页面中设置的 Cookie。
+- Host：发送请求的页面所在的域。
+- Referer：发送请求的页面的 URL。这个字段在 HTTP 规范中就拼错了，所以考虑到兼容就一错再错。
+- User-Agent：浏览器的用户代理字符串。
+
+如果需要发送额外的请求头部，可以使用 setRequestHeader()方法。 它接受两个参数：头部字段的名称和值。为保证请求头部被发送，必须在 open()之后、send()之前调用：
+
+```js
+// 省略上面步骤。。。
+xhr.open("get", "example.php", true);
+xhr.setRequestHeader("MyHeader", "MyValue");
+xhr.send(null);
+```
+
+浏览器通过读取自定义头部可以确定适当的操作。自定义头部一定要区别于浏览器正常发送的头部，否则可能影响浏览器正常响应。
+
+getResponseHeader()方法可以从 XHR 对象获取响应头部。
+getAllResponseHeaders()方法可以获取所有响应头部，返回包含所有响应头部的字符串。
+
+```js
+let myHeader = xhr.getResponseHeader("MyHeader");
+let allHeader = xhr.getAllResponseHeaders();
+```
+
+服务器可以使用头部向浏览器传递额外的结构化数据。getAllResponseHeaders()通常返回如下字符串：
+
+```js
+Date: Sun, 14 Nov 2004 18:04:03 GMT
+Server: Apache/1.3.29 (Unix)
+Vary: Accept
+X-Powered-By: PHP/4.3.8
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+```
+
+# Get
