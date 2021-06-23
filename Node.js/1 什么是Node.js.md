@@ -36,3 +36,9 @@ http 中的 createServer()方法创建并返回一个新的 HTTP 服务器。
 服务器设置为监听指定的端口和主机名。当服务器准备好时，回调函数被调用，在这种情况下通知我们服务器正在运行。
 
 每当接收到新请求时，都会调用 request 事件，提供两个对象：请求（http.IncomingMessage 对象）和响应（http.ServerResponse 对象）。
+
+这两个对象对于处理 HTTP 调用至关重要。
+
+请求（http.IncomingMessage 对象）提供请求详细信息。这个例子中没有使用它。
+
+响应（http.ServerResponse 对象）用于向调用者返回数据。上面的例子将 statusCode 属性设置为 200，以指示成功响应。设置 Content-Type 标头。然后关闭响应，将内容"Hello World"作为参数添加到 end()：
