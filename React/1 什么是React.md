@@ -160,3 +160,5 @@ React DOM 负责更新 DOM 来与 React 元素保持一致。
 const element = <h1>Hello, world!</h1>;
 ReactDOM.render(element, document.getElementById("root"));
 ```
+
+https://react.docschina.org/docs/rendering-elements.html
