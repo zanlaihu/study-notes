@@ -1,4 +1,4 @@
-// indexOf()对大小写敏感
+// 返回A字符串在B字符串内的位置，indexOf()对大小写敏感
 
 
 const str = "123abc";

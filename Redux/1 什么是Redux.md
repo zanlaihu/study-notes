@@ -1,4 +1,4 @@
-http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html
+https://www.redux.org.cn/
 
 React 只是 DOM 的一个抽象层，并不是 web 应用的完整解决方案。单独的 React 没有办法写大型应用，有两点它没有涉及：
 
@@ -7,7 +7,9 @@ React 只是 DOM 的一个抽象层，并不是 web 应用的完整解决方案�
 
 对于大型复杂应用来说，这两点至关重要。
 
-为了解决这个问题，2014 年 Facebook 提出了 Flux 架构，2015 年 Redux 问世，将 Flux 和函数式编程结合一起。
+为了解决这个问题，2014 年 Facebook 提出了 Flux 架构，2015 年 Redux 问世。
+
+Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux 由 Flux 演变而来，避开了 Flux 的复杂性。
 
 # Redux 适用场景
 
@@ -107,3 +109,7 @@ store.dispatch(addTodo("learn"));
 ```
 
 # Reducer
+
+Reducer 接受 Action 和当前的 State 作为参数，返回一个新的 State。
+
+store.dispatch()会触发 Reducer 的自动执行。
