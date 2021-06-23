@@ -1,5 +1,3 @@
-# React
-
 React 是用于构建界面的 JavaScript 库。它具有渐进适配的特性，可以按需引入。
 
 一个完整的 React 工具链包含：
@@ -103,6 +101,7 @@ const element = <h1>{title}</h1>;
 Babel 会把 JSX 转译成一个名为 React.createElement() 函数调用。
 
 以下两种代码完全等效：
+
 ```jsx
 const element = {
   <h1 className="greeting">
