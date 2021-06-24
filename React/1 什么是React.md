@@ -6,9 +6,7 @@ React 是用于构建界面的 JavaScript 库。它具有渐进适配的特性�
 2. 打包器：webpack 或 parcel
 3. 编译器：Babel，能让新版 JavaScript 在旧版浏览器运行
 
-使用 Create React App （类似 Angular CLi 的脚手架工具）创建 React 应用。
-
-因为 Create React App 不会处理后端逻辑或操纵数据库，所以可以配合任何后端。其内部使用 Babel 和 webpack。
+使用 Create React App 创建 React 应用。因为它不会处理后端逻辑或操纵数据库，所以可以配合任何后端。其内部使用 Babel 和 webpack。
 
 ```
 npx create-react-app my-app
@@ -132,33 +130,47 @@ const element = {
 
 这些对象被称为 React 元素，React 通过读取这些对象来构建 DOM 并保持随时更新。
 
-## 元素渲染
+# 元素渲染
 
-React 元素是创建开销极小的对象，与浏览器的 DOM 元素不同。
+React 元素是构成 React 应用的最小砖块。
 
-React DOM 负责更新 DOM 来与 React 元素保持一致。
+React 元素是创建开销极小的普通对象，与浏览器的 DOM 元素不同。React DOM 负责更新 DOM 来与 React 元素保持一致。
 
-### 根 DOM 节点
+根 DOM 节点:
 
 ```html
 <div id="root"></div>
 ```
 
-该节点的内容都由 React DOM 管理。
+该节点的内容都由 React DOM 管理。React 通过将 React 元素渲染到根 DOM 节点来更新 UI。仅使用 React 构建的应用一般只有一个根 DOM 节点。如果成型的网站引入 React，可能包含多个。
 
-类似 Angular 中的：
+类似 Angular 的：\<app-root>\</app-root>
 
-```html
-<app-root></app-root>
-```
-
-仅使用 React 构建的应用一般只有一个根 DOM 节点。如果成型的网站引入 React，可能包含多个。
-
-通过 ReactDOM.render()，将 React 元素渲染到根 DOM 节点。
+使用 ReactDOM.render()方法可以将 React 元素渲染到根 DOM 节点。
 
 ```jsx
 const element = <h1>Hello, world!</h1>;
 ReactDOM.render(element, document.getElementById("root"));
 ```
 
-https://react.docschina.org/docs/rendering-elements.html
+## 更新已渲染的元素
+
+React 元素是不可变对象。一旦创建就无法更改子元素或属性。所以只能创建一个新元素来替代，从而达到更新的目的。
+
+考虑一个计时器例子:
+
+```js
+function tick() {
+  const element = (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {new Date().toLocaleTimeString()}.</h2>
+    </div>
+  );
+  ReactDOM.render(element, document.getElementById("root"));
+}
+
+setInterval(tick, 1000);
+```
+
+虽然每次都把全部元素塞入 ReactDOM 让其再次渲染，但 React 会将元素与之前的状态进行对比，从而只更新需要更新的地方。所以这个例子里只有\<h2>标签被不断更新。
