@@ -1,89 +1,62 @@
-组件可以将 UI 拆分成独立可复用的代码片段。
-# 函数组件
+组件可以将 UI 拆分成独立可复用的代码片段。组件接收入参 props 并返回一个 React 元素。
+
+React 元素除了是 DOM 标签，比如\<h1>以外，也可以是用户自定义的组件，比如函数组件、class组件。
+
+## 函数组件
+
 JavaScript 函数定义组件：
+
 ```jsx
 function Welcome(props) {
   return <h1>Hello, {(props, name)}</h1>;
 }
-```
-这个组件接收props并返回一个React元素。
-# class组件
 
-## props 的只读性
-
-必须保证入参 props 不被修改。像下面这个纯函数一样：
-
-```jsx
-function sum(a, b) {
-  return a + b;
-}
+const element = <Welcome name="Sara">
 ```
 
-这个不是纯函数：
+自定义组件必须大写字母开头(比如 Welcome)，不然会被 React 误认为是原生 DOM 标签。
 
-```jsx
-function withdraw(accoumt, amount) {
-  account.total = account.total - amount;
-}
-```
-
-
-
-## 渲染函数组件
+当 React 元素为自定义组件时，它会将 JSX 所接收的属性（attributes）和子组件（children）合并成一个 props 对象传递给组件：
 
 ```jsx
 function Welcome(props){
-    // 属性和子组件会被放在一个对象（props）里传递。
-    return <h1>Hello,{props.name}</h1>;
+  return <h1>Hello, {props.name}</h1>
 }
 
-// React元素可以是自定义组件：<Welcome>
 const element = <Welcome name="Sara">;
 
-ReactDOM.render(
-    element,
-    document.getElementById('root)
-)
+ReactDOM.render(element, document.getElementById('root'));
 ```
 
-上面创建的 props：
+> 入参并不是必须命名成“props”，可以使用任意合法变量名。
 
-```jsx
-props = {
-  name: "Sara",
-};
-```
+多个函数组件可以组合在一起：
 
-最后画面显示 Hello, Sata
-
-自定义组件必须大写字母开头，比如上面的 Welcome。不然会被 React 误认为是原生 DOM 标签。
-
-## 组合函数组件
-
-```jsx
-function Welcome(props){
-    return <h1>Hello, {props.name}</h1>;
+```js
+function Welcome(p) {
+  return <h1>Hello, {p.name}</h1>;
 }
 
-function App(){
-    return {
-        <div>
-            <Welcome name="Klaus">
-            <Welcome name="Max">
-            <Welcome name="Caroline">
-        </div>
-    }
+function App() {
+  return (
+    <div>
+      <Welcome name="Sara" />
+      <Welcome name="Klaus" />
+      <Welcome name="Mike" />
+    </div>
+  );
 }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-## 提取函数组件
+可以通过组合形成复杂的结构：
 
-```jsx
+```js
+function formatDate(date) {
+  return date.toLocaleDateString();
+}
+
 function Comment(props) {
   return (
     <div className="Comment">
@@ -100,22 +73,40 @@ function Comment(props) {
     </div>
   );
 }
+
+const comment = {
+  date: new Date(),
+  text: "I hope you enjoy learning React!",
+  author: {
+    name: "Hello Kitty",
+    avatarUrl: "https://placekitten.com/g/64/64",
+  },
+};
+
+ReactDOM.render(
+  <Comment date={comment.date} text={comment.text} author={comment.author} />,
+  document.getElementById("root")
+);
 ```
 
-这样一个复杂 Comment 组件可以提取成：
+过于复杂的单个组件难以复用，可以将其拆分：
 
-```jsx
-function Avatar(props) {
+```js
+function formatDate(date) {
+  return date.toLocaleDateString();
+}
+
+function Avatar(p) {
   return (
-    <img className="Avatar" src={props.user.avatarUrl} alt={props.user.name} />
+    <img className="Avatar" src={p.user.avatarUrl} alt={p.user.name}></img>
   );
 }
 
-function UserInfo(props) {
+function UserInfo(p) {
   return (
     <div className="UserInfo">
-      <Avatar user={props.user} />
-      <div className="UserInfo-name">{props.user.name}</div>
+      <Avatar user={p.user} />
+      <div className="UserInfo-name">{p.user.name}</div>
     </div>
   );
 }
@@ -129,8 +120,40 @@ function Comment(props) {
     </div>
   );
 }
+
+const comment = {
+  date: new Date(),
+  text: "I hope you enjoy learning React!",
+  author: {
+    name: "Hello Kitty",
+    avatarUrl: "https://placekitten.com/g/64/64",
+  },
+};
+
+ReactDOM.render(
+  <Comment date={comment.date} text={comment.text} author={comment.author} />,
+  document.getElementById("root")
+);
 ```
 
+## props 的只读性
+
+入参 props 不能被修改。参考下面这个纯函数一样：
+
+```jsx
+function sum(a, b) {
+  return a + b;
+}
+```
+
+下面这个则不是纯函数：
+
+```jsx
+function withdraw(accoumt, amount) {
+  account.total = account.total - amount;
+}
+```
+所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。
 # class 组件
 
 class 组件：
