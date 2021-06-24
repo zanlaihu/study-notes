@@ -1,6 +1,13 @@
-# 组件和 props
-
-能够接受入参 props 并返回 React 元素的就是组件。
+组件可以将 UI 拆分成独立可复用的代码片段。
+# 函数组件
+JavaScript 函数定义组件：
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {(props, name)}</h1>;
+}
+```
+这个组件接收props并返回一个React元素。
+# class组件
 
 ## props 的只读性
 
@@ -20,13 +27,7 @@ function withdraw(accoumt, amount) {
 }
 ```
 
-# 函数组件
 
-```jsx
-function Welcome(props) {
-  return <h1>Hello, {(props, name)}</h1>;
-}
-```
 
 ## 渲染函数组件
 
@@ -130,12 +131,14 @@ function Comment(props) {
 }
 ```
 
-# class组件
-class组件：
+# class 组件
+
+class 组件：
+
 ```jsx
-class Welcome extends React.Component{
-    render(){
-        return <h1>Hello, {this.props.name}</h1>;
-    }
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
 }
 ```
