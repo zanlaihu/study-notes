@@ -7,6 +7,6 @@ Person.prototype.sex = 'male';
 person1 = new Person();
 
 console.log(person1.hasOwnProperty('name')) // true
-console.log(person1.hasOwnProperty('sayGoodBy')) // false
+console.log(person1.hasOwnProperty('sex')) // false ???
 
 
