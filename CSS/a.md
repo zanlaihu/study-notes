@@ -1,3 +1,8 @@
+\<a>是超链接元素。具有默认的四种情况下的样式。
+
+一般会把它的样式清空：
+
+```css
 /* 未被访问前 */
 a:link {
   text-decoration: none;
@@ -14,3 +19,4 @@ a:active {
 a:visited {
   text-decoration: none;
 }
+```
