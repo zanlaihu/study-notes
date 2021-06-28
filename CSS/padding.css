@@ -1,0 +1,19 @@
+.example {
+  padding: 10px 5px 15px 20px;
+  /* 上、右、下、左 */
+}
+
+.example1 {
+  padding: 10px 5px 15px;
+  /* 上、右左、下 */
+}
+
+.example2 {
+  padding: 10px 5px;
+  /* 上下、右左 */
+}
+
+.example3 {
+  padding: 10px;
+  /* 全部 */
+}

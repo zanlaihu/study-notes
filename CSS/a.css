@@ -2,15 +2,15 @@
 a:link {
   text-decoration: none;
 }
-/* 已被访问过时 */
+/* 悬浮时 */
 a:hover {
   text-decoration: none;
 }
-
+/* 鼠标按下且未松开前时*/
 a:active {
   text-decoration: none;
 }
-/* 被用户激活（在鼠标点击与释放之间发生的事件）时 */
+/* 向访问过的链接添加特殊的样式 */
 a:visited {
   text-decoration: none;
 }
