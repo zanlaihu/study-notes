@@ -1,5 +1,5 @@
-const array1 = [1, 4, 6, 14];
+const url = "www.baidu.com?123";
 
-const array2 = array1.map(x => x * 2);
+const url = "www.baidu.com";
 
-console.log(array2);
+const param = (url.)
