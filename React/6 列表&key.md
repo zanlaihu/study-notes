@@ -149,5 +149,19 @@ const content = posts.map((post) => (
 ));
 ```
 
-# JSX中嵌入map()
+# JSX 中嵌入 map()
 
+JSX 允许在大括号中嵌入任何表达式，所以可以内联 map() 返回的结果：
+
+```js
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) => (
+        <ListItem key={number.toString()} value={number} />
+      ))}
+    </ul>
+  );
+}
+```
