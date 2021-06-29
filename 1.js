@@ -1,10 +1,5 @@
-function greeting(name) {
-  console.log('Hello ' + name);
-}
+const array1 = [1, 4, 6, 14];
 
-function processUserInput(callback) {
-  var name = '请输入你的名字。';
-  callback(name);
-}
+const array2 = array1.map(x => x * 2);
 
-processUserInput(greeting);
+console.log(array2);
