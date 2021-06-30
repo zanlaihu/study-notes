@@ -24,3 +24,18 @@ console.log(intersect);
 let difference = new Set([...b].filter((x) => !a.has(x)));
 console.log(difference);
 ```
+
+# Set.prototype.size
+
+返回 set 对象中元素的个数
+
+# Set.prototype.add()
+
+添加新元素
+
+# Set.prototype.clear()
+
+移除 Set 对象内的所有元素。
+
+# Set.prototype.delete(value)
+移除Set中与这个值相等的元素，并返回一个布尔值（即如果该元素存在，返回true，否则返回false）。
