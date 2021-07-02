@@ -13,18 +13,23 @@ function isMultipled(set, newValue) {
 function findLongest(str) {
     if (str === "") {
         return 0;
+    } else if (str === " ") {
+        return 1;
+    } else if (str.length === 1) {
+        return 1;
     }
     let longestArray = [];
 
-    for (let i = 0; i < str.length; i++) {
+    for (i = 0; i < str.length; i++) {
         let validateSet = new Set(str[i]);
 
-        for (let j = i + 1; j < str.length; j++) {
+        for (j = i + 1; j < str.length; j++) {
             if (!isMultipled(validateSet, str[j])) {
                 validateSet.add(str[j]);
+                longestArray.push(validateSet.size);
             } else {
                 longestArray.push(validateSet.size);
-                break
+                break;
             }
         }
     }
@@ -33,5 +38,5 @@ function findLongest(str) {
 }
 
 
-console.log(findLongest(''));
 
+console.log(findLongest("au"));
