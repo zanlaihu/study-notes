@@ -1,4 +1,5 @@
-const set1 = new Set(['apple','a','change']);
-const setEntries = set1.values();
+let name1 = '123';
 
-console.log(setEntries);
+let name1 = 'fda';
+
+console.log(name1);
