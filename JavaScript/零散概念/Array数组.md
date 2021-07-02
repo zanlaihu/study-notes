@@ -1,32 +1,61 @@
-var array = ["apple", 100, "good"];
+数组有方括号构成，用逗号分隔元素。
 
-// 打印第一个元素
-console.log(array[0]);
+创建数组：
 
-// 打印超出长度的元素不会报错，得到 undefined
-console.log(array[10]);
+```js
+let newArray = [];
+```
 
-// 遍历数组
-var i;
-for (i = 0; i < array.length; i++) {
-console.log(array[i]);
-}
+可以将任何类型的元素存储在数组中 - 字符串，数字，对象，另一个变量，甚至另一个数组。
 
-// 删去数组元素,被删处会留下 undefined
-delete array[1];
-console.log(array);
-// [ 'apple', <1 empty item>, 'good' ]
+```js
+let newArray = ["tree", 795, [0, 1, 2]];
+```
 
-// 用 splice 删元素，会直接把索引也删掉
-array.splice(1, 1);
-console.log(array);
-// [ 'apple', 'good' ]
+检索数组：
 
-// 添加数组元素
+```js
+newArray[0];
+```
 
-var data = [
-{ userId: 8, title: 'title1' },
-{ userId: 11, title: 'other' },
-{ userId: 15, title: null },
-{ userId: 19, title: 'title2' }
-];
+修改数组：
+
+```js
+newArray[0] = "new Value";
+```
+
+多维数组：
+
+```js
+let newArray = [][];
+```
+
+获取数组长度：
+
+```js
+newArray.length;
+```
+
+添加元素到数组末尾：
+
+```js
+newArray.push("newValue");
+```
+
+删除末尾元素：
+
+```js
+newArray.pop();
+```
+
+添加元素到数组开头：
+
+```js
+newArray.unshift()("newValue");
+```
+
+删除开头元素：
+
+```js
+newArray.shift();
+```

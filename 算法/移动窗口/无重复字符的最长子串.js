@@ -11,20 +11,27 @@ function isMultipled(set, newValue) {
 }
 
 function findLongest(str) {
+    if (str === "") {
+        return 0;
+    }
     let longestArray = [];
 
-    for (i = 0; i < str.length; i++) {
-        let right = i + 1;
+    for (let i = 0; i < str.length; i++) {
         let validateSet = new Set(str[i]);
 
-        if (!isMultipled(validateSet, right)) {
-            validateSet.add(str[right]);
-        } else {
-            break
+        for (let j = i + 1; j < str.length; j++) {
+            if (!isMultipled(validateSet, str[j])) {
+                validateSet.add(str[j]);
+            } else {
+                longestArray.push(validateSet.size);
+                break
+            }
         }
     }
+    longestArray.sort((a, b) => a - b);
+    return longestArray[longestArray.length - 1];
 }
 
 
-findLongest('abcabcbb');
+console.log(findLongest(''));
 
