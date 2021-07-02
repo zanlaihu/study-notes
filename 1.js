@@ -1,5 +1,3 @@
-let name1 = '123';
+const s = 'babad';
 
-let name1 = 'fda';
-
-console.log(name1);
+console.log(s.substring(0,2));
