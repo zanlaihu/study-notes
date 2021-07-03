@@ -1,3 +1,10 @@
-const s = 'babad';
+function makeFunc() {
+  let name = "Mozilla";
+  function displayName() {
+    console.log(name);
+  }
+  return displayName;
+}
 
-console.log(s.substring(0,2));
+let myFunc = makeFunc();
+myFunc();
