@@ -16,9 +16,9 @@ JavaScript 问世之初是为了代替 perl 等服务端语言。
 所以，虽然一般将 JavaScript 等同为 ECMAScript。但 JavaScript 包含ECMAScript在内。
 
 JavaScript的结构是：</br>
-核心 ECMAScript</br>
-文档对象模型 DOM（Document object model）</br>
-浏览器对象模型 BOM（Browser object model）
+1. 核心 ECMAScript</br>
+2. 文档对象模型 DOM（Document object model）</br>
+3. 浏览器对象模型 BOM（Browser object model）
 
 # ECMAScript、DOM、BOM
 
