@@ -1,16 +1,12 @@
----
-theme: smartblue
----
-
 # 数据类型
 
-红宝书将 JavaScript 数据类型归为 7 种。
+JavaScript 数据类型有 7 种。
 
 6 种简单类型：Undefined、Null、Boolean、Number、String、Symbol
 
 1 种复杂类型：Object
 
-> W3C 将数组也作为一个独立的简单类型。数组的 typeof 是 object。
+BigInt 和 function 比较有争议，有些地方会把它们当作新的数据类型，也有些地方认为它们只是特殊的对象。
 
 # typeof 操作符
 
