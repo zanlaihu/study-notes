@@ -38,26 +38,22 @@ let newArray = [][];
 newArray.length;
 ```
 
-添加元素到数组末尾：
+# 添加和删除数组元素
+
+末尾：
 
 ```js
+// 添加元素到数组末尾：
 newArray.push("newValue");
-```
 
-删除末尾元素：
-
-```js
+// 删除末尾元素：
 newArray.pop();
 ```
-
-添加元素到数组开头：
-
+开头：
 ```js
+// 添加元素到数组开头：
 newArray.unshift()("newValue");
-```
 
-删除开头元素：
-
-```js
+// 删除开头元素：
 newArray.shift();
 ```
