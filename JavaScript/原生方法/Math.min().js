@@ -1,7 +1,7 @@
 /** 返回一组数中的最小值
  *
- * @requires Array
- * @return number
+ * @param {number[]} 
+ * @return {number}
  */
 
  Math.min(1, 2, 3);

@@ -1,7 +1,7 @@
 /** 返回一组数中的最大值
  *
- * @requires Array
- * @return number
+ * @param {number[]} 
+ * @return {number}
  */
 
 Math.max(1, 2, 3);
