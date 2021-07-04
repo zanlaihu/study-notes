@@ -44,4 +44,5 @@ function convert(s, numRows) {
     return newStr;
 }
 
+
 console.log(convert("PAYPALISHIRING", 3));
