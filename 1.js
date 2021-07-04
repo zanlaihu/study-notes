@@ -1,10 +1,10 @@
-function makeFunc() {
-  let name = "Mozilla";
-  function displayName() {
-    console.log(name);
-  }
-  return displayName;
-}
+const matrix = [
+  [1, 2, 3],
+  [5, 6, 7],
+  [8, 9, 0],
+];
 
-let myFunc = makeFunc();
-myFunc();
+console.log(matrix[0][1]);
+
+let maxtrix2 = [];
+
