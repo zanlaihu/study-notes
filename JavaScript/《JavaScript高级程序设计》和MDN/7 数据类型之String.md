@@ -1,8 +1,11 @@
+---
+theme: hydrogen
+---
 # String
 
 字符串表示零或多个 16 位 Unicode 字符序列。
 
-可以用双引号、单引号、反引号标识：
+可以用双引号、单引号、反引号标识，在某些语言中，使用不同的引号有不同的效果。但是对 ECMAScript 来说，都是一样的：
 
 ```javascript
 let name1 = "Mike";
@@ -10,13 +13,8 @@ let name2 = "Mike";
 let name3 = `Mike`;
 ```
 
-在某些语言中，使用不同的引号有不同的效果。但是对 ECMAScript 来说，都是一样的。
 
-可以用.length 来获取字符串长度。比如，message.length 即可获取字符串 message 的长度。
-
-### 字符串一旦创建就不可修改
-
-这里的不可修改并不是说不能拼接：
+字符串一旦创建就不可修改，这里的不可修改并不是说不能拼接：
 
 ```javascript
 let lang = "Java";
@@ -25,9 +23,8 @@ lang = lang + "Script";
 
 而是这个过程在内存中，首先会创建一个新的 10 字符空间容纳“JavaScript”，然后销毁目前的“Java”和“Script”，然后将值“JavaScript”给 lang。所以早期拼接字符串非常慢。现在的浏览器都有针对性地解决了这个问题。
 
-## 字符字面量——可以被识别的特殊字符
+# 字符字面量——可以被识别的特殊字符
 
-字符串中有一些具有特殊功能的字符：
 |字面量|含义|
 |--|--|
 |\n|换行|
@@ -48,50 +45,49 @@ lang = lang + "Script";
 
 # 模板字面量
 
-模板字面量都要使用反引号“`”。
+模板字面量要使用反引号“`”。
 
 ## 按格式读取字符串
 
-ECMAScript 6 新增了使用模板字面量定义字符串的能力。与使用单引号或双引号不同，模板字面量
-保留换行字符，会直接识别跨行的赋值。
+模板字面量保留换行字符，会识别跨行的赋值。
 
 ```javascript
 let myMultiLineString = "first line\nsecond line";
-let myMultiLineTemplateLiteral = `first line
-second line`;
 console.log(myMultiLineString);
 // first line
 // second line"
+
+let myMultiLineTemplateLiteral = `first line
+second line`;
 console.log(myMultiLineTemplateLiteral);
 // first line
 // second line
+
+// 两种写法等价
 console.log(myMultiLineString === myMultiLinetemplateLiteral); // true
 ```
 
 使用模板字面量要注意缩进的问题：
 
 ```javascript
-// 这个模板字面量在换行符之后有25 个空格符
 let myTemplateLiteral = `first line
 second line`;
-console.log(myTemplateLiteral.length); // 47
-// 这个模板字面量以一个换行符开头
+console.log(myTemplateLiteral.length); 
+// output：47。因为第一行换行符之后有25 个空格符
+
+
 let secondTemplateLiteral = `
 first line
 second line`;
-console.log(secondTemplateLiteral[0] === "\n"); // true
-// 这个模板字面量没有意料之外的字符
-let thirdTemplateLiteral = `first line
-second line`;
-console.log(thirdTemplateLiteral);
-// first line
-// second line
+console.log(secondTemplateLiteral[0] === "\n"); 
+// output：true。因为这个模板字面量以一个换行符开头
 ```
 
 ## 字符串插值
 
-模板字面量的另一个特性是支持字符串插值。即可以在一个字符串中再插入其他字符串。有些地方也将其称为字符串格式化。
-使用它需要按照${}的格式，并且必须用反引号：
+模板字面量支持字符串插值。即可以在一个字符串中再插入其他字符串，也被称为字符串格式化。
+
+使用它需要按照${}的格式，所有插入值都会被 toString()强制转换成字符串。：
 
 ```javascript
 let value = 5;
@@ -101,9 +97,7 @@ let interpolatedTemplateLiteral = `${value} to the ${exponent} power is ${
 }`;
 ```
 
-所有插入值都会被 toString()强制转换成字符串。
-
-### 可以插值时插入函数
+### 可以插入函数
 
 ```javascript
 function capitalize(word) {
@@ -112,7 +106,7 @@ function capitalize(word) {
 console.log(`${capitalize("hello")}, ${capitalize("world")}!`); // Hello, World!
 ```
 
-### 可以插入自己之前的值
+### 可以插入当前值
 
 ```javascript
 let value = "";
@@ -127,9 +121,9 @@ append(); // abcabcabc
 
 ## 支持定义标签函数
 
-这一块的内容我并没有完全理解，所以就照搬红宝书了。以免理解有误。
+模板字面量支持定义标签函数（tag function），自定义插值行为。
 
-模板字面量也支持定义标签函数（tag function），而通过标签函数可以自定义插值行为。标签函数
+标签函数
 会接收被插值记号分隔后的模板和对每个表达式求值的结果。
 标签函数本身是一个常规函数，通过前缀到模板字面量来应用自定义行为，如下例所示。标签函数
 接收到的参数依次是原始字符串数组和对每个表达式求值的结果。这个函数的返回值是对模板字面量求
@@ -236,34 +230,11 @@ printRaw`\u00A9${"and"}\n`;
 // \n
 ```
 
-# 补充一些红宝书未提及的字符串方法
-
-### 字符串方法
-
-str.indexOf() 无法设置更强大的搜索值
-str.lastIndexOf() 未找到的时候返回-1
-str.search() 无法设置第二个位置
-
-有三种提取部分字符串的方法：
-slice(start, end)
-substring(start, end)
-substr(start, length)
-
-replace()
-toUpperCase()
-toLowerCase()
-concat()
-trim() 删除两边的空白
-charAt()
-charCodeAt() 返回 unicode
-
 # 转换为字符串
-
-.toString()、String()可以将值转换为字符串
 
 ## .toString()
 
-这个方法可以处理除了 null 和 undefined 以外的所有值。
+>null 和 undefined 不能使用这个方法。
 
 ```javascript
 let age = 11;
@@ -272,7 +243,7 @@ let found = true;
 let foundAsString = found.toString(); // 字符串"true"
 ```
 
-并且对于数值，可以加入参数：
+对于数值可以指定转化为几进制：
 
 ```javascript
 let num = 10;
@@ -285,14 +256,64 @@ console.log(num.toString(16)); // "a"
 
 ## String()
 
-String()是.toString()的加强版。
-对于可以使用 toString()转换的，调用该方法。
-对于 null 和 undefined，返回“null”和“undefined”。
+String()是.toString()的加强版。对于 null 和 undefined，返回“null”和“undefined”。
 
 ```javascript
 console.log(String(null)); // "null"
 
 let mess;
 console.log(String(mess)); // "undefined"
+
 console.log(String(mess1)); //未声明的undefined, 得到ReferenceError
+```
+
+# 字符串长度
+## String.length
+返回一个number值。
+
+# 截取字符串
+
+## String.prototype.slice()
+接收两个index参数：开始，结束。
+
+如果未传入结束，默认截到末尾。
+```js
+const str = 'The quick brown fox jumps over the lazy dog.';
+
+console.log(str.slice(31));
+// expected output: "the lazy dog."
+
+console.log(str.slice(4, 19));
+// expected output: "quick brown fox"
+
+console.log(str.slice(-4));
+// expected output: "dog."
+
+console.log(str.slice(-9, -5));
+// expected output: "lazy"
+```
+
+## String.prototype.substring()
+
+和slice()类似。但是会将负数参数直接识别成0
+
+## String.prototype.substr()
+
+接收两个参数：开始，返回的字符串个数
+
+第二个参数未传入时，默认截到末尾。第二个参数超过字符串长度时，默认截到末尾。
+```js
+const str = 'The quick brown fox jumps over the lazy dog.';
+
+console.log(str.substr(0,8);
+// output: "The quic"
+
+console.log(str.substr(-5, 8);
+// output: " dog."
+
+console.log(str.substr(0,50);
+// output: "The quick brown fox jumps over the lazy dog."
+
+console.log(str.substr(4);
+// output: "quick brown fox jumps over the lazy dog."
 ```
