@@ -5,15 +5,20 @@
  */
 
 function maxArea(height) {
-    maxAreaValue = 0;
+  maxAreaValue = 0;
+  left = 0;
+  right = height.length - 1;
 
-  for (let i = 0; i < height.length; i++) {
-    for (let j = i + 1; j < height.length; j++) {
-      minHeight = Math.min(...[height[i], height[j]]);
-      calMax = (j - i) * minHeight;
-      if (calMax > maxAreaValue) {
-        maxAreaValue = calMax;
-      }
+  maxAreaValue = (right - left) * (Math.min(...[height[left], height[right]]));
+  while (left !== right) {
+    if (height[left] <= height[right]) {
+      left++;
+    } else {
+      right--;
+    }
+    area = (right - left) * (Math.min(...[height[left], height[right]]));
+    if (area > maxAreaValue) {
+      maxAreaValue = area;
     }
   }
 
