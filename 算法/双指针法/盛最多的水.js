@@ -2,21 +2,23 @@
  * 坐标直线之间的空间放最多的水
  *
  * https://leetcode-cn.com/problems/container-with-most-water/
+ *
+ * @param {*} height
+ * @return {*}
  */
-
 function maxArea(height) {
   maxAreaValue = 0;
   left = 0;
   right = height.length - 1;
 
-  maxAreaValue = (right - left) * (Math.min(...[height[left], height[right]]));
+  maxAreaValue = (right - left) * Math.min(...[height[left], height[right]]);
   while (left !== right) {
     if (height[left] <= height[right]) {
       left++;
     } else {
       right--;
     }
-    area = (right - left) * (Math.min(...[height[left], height[right]]));
+    area = (right - left) * Math.min(...[height[left], height[right]]);
     if (area > maxAreaValue) {
       maxAreaValue = area;
     }

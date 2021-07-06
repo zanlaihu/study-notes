@@ -1,6 +1,6 @@
 /** 返回一组数中的最大值
  *
- * @param {number[]} 
+ * @param {number[]}
  * @return {number}
  */
 
