@@ -1,8 +1,10 @@
 /**
  * 找到数列中和为0的不重复的三个数
+ * 
+ * 双指针法+排序+一次循环
  *
+ * https://leetcode-cn.com/problems/3sum/
  */
-
 function findSumOfThree(nums, target) {
   targetArray = [];
   sortNums = nums.sort((a, b) => a - b);
