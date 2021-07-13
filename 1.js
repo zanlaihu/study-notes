@@ -1,32 +1,25 @@
-function threeSumCloest(nums, target) {
-  let cloestNum;
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+  const numToWords = {
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz",
+  };
 
-  sortArray = nums.sort((a, b) => a - b);
-
-  for (let i = 0; i < sortArray.length - 2; i++) {
-    left = i + 1;
-    right = sortArray.length - 1;
-
-    while (left < right) {
-      trySum = sortArray[i] + sortArray[left] + sortArray[right];
-      diff = target - trySum;
-      if (cloestNum === undefined) {
-        cloestNum = trySum;
-      }
-      if (Math.abs(target - cloestNum) > Math.abs(diff)) {
-        cloestNum = trySum;
-      }
-      if (target > trySum) {
-        left = left + 1;
-      } else if (target < trySum) {
-        right = right - 1;
-      } else if (target === trySum) {
-        break;
-      }
-    }
+  list = [];
+  while (digits.length > 0) {
+    list.push(digits.pop());
   }
 
-  return cloestNum;
-}
+  console.log(list);
+};
 
-console.log(threeSumCloest([0, 2, 1, -3], 1));
+letterCombinations("234");
