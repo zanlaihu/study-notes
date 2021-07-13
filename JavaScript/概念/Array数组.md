@@ -1,4 +1,4 @@
-数组有方括号构成，用逗号分隔元素。
+数组由方括号构成，用逗号分隔元素。
 
 # 创建数组：
 
@@ -49,7 +49,9 @@ newArray.push("newValue");
 // 删除末尾元素：
 newArray.pop();
 ```
+
 开头：
+
 ```js
 // 添加元素到数组开头：
 newArray.unshift()("newValue");
