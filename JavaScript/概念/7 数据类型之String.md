@@ -295,7 +295,9 @@ console.log(str.slice(-9, -5));
 
 ## String.prototype.substring()
 
-和slice()类似。但是会将负数参数直接识别成0
+和slice()类似。
+1. 负数参数识别成0。
+2. 若开始大于结束，则两参数对换。
 
 ## String.prototype.substr()
 

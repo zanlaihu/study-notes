@@ -1,8 +1,36 @@
 # 背景
-在A页面填写完表单，点击提交到达B画面后，在B画面点击返回键返回到A画面时，会发现浏览器滚动条依旧保持在最后提交时的状态。
+
+在 A 页面填写完表单，点击提交到达 B 画面后，在 B 画面点击返回键返回到 A 画面时，会发现浏览器滚动条依旧保持在最后提交时的状态。
 
 # 需求
+
 返回前画面时，滚动条回到顶端。
 
 # 解决方法
-在项目创建初期，存在一个初始画面，不显示任何内容，仅用于加载数据和开启监听。在那里存在一个不会关闭的监听逻辑，在那里实时获取当前页面的ID，并设置在其将要离开页面时，将其滚动条挑战到顶端。
+
+Angular 项目有一个元页面 app.component.ts，是项目启动后进入的第一个画面。
+在这里开启了一个监听，每当使用 router 方法进行跳转进入页面后，都会执行 scroll to top 方法。
+
+```js
+this.router.events.subscribe(() => {
+  setTimeOut(() => {
+      this.scrollToTop();
+  },200);
+});
+
+private scrollToTop():void {
+    if (this.getContent("ion-content")) {
+      this.getContent("ion-content").scrollToTop();
+    }
+}
+
+private getContent(tagName: string):HTMLIonContentElement{
+    let pageId = this.router.url.split('?')[0];
+    pageId = pageId.substring(pageId.lastIndexOf('/') + 1);
+    if(document.querySelector(pageId)){
+        return document.querySelector(pageId).querySelector(tagName);
+    } else {
+        return undefined;
+    };
+}
+```
