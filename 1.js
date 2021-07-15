@@ -3,6 +3,10 @@
  * @return {string[]}
  */
 var letterCombinations = function (digits) {
+  if (digits.length === 0) {
+    return [];
+  }
+
   const numToWords = {
     2: "abc",
     3: "def",
@@ -15,11 +19,22 @@ var letterCombinations = function (digits) {
   };
 
   list = [];
-  while (digits.length > 0) {
-    list.push(digits.pop());
+
+  function dfs(tmp, index) {
+    if (index === digits.length) {
+      list.push(tmp);
+      return;
+    }
+
+    const letters = map[digits[index]];
+    for (const letter of letters) {
+      dfs(tmp + letter, index + 1);
+    }
   }
 
-  console.log(list);
+  dfs("", 0);
+
+  return list;
 };
 
 letterCombinations("234");
