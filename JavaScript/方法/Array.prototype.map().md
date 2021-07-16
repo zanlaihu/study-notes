@@ -12,7 +12,7 @@ console.log(array2);
 ```
 
 # 参数
-```hs
+```js
 let new_array = arr.map(function callback(currentValue[, index[, array]]) {
  // Return element for new_array 
 }[, thisArg])

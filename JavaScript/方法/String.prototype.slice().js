@@ -1,7 +1,8 @@
 /**
  * 截取字符串。不对原字符串做更改
  *
- * @requires start{number} end{end} 未指定end，则截取到末尾
+ * @requires start{number} 
+ * @requires end{number} 未指定end，截取到末尾
  * @returns string
  *
  */
