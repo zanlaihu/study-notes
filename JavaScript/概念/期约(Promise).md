@@ -1,20 +1,43 @@
 # 期约
 
+Promise 是一个 ECMAScript 提供的类，目的是更加优雅地书写复杂的异步任务。
+
 Promise 对象用于表示一个异步操作的最终完成（或失败）及其结果值。
 
-# 期约基础
+Promise 可以通过 new 操作符实例化。
 
-Promise 是引用类型，可以通过 new 操作符实例化。创建新期约需要传入执行器（executor）函数作为参数（不然会抛出 SyntaxError）。
+Promise 构造函数只有一个参数，是一个执行器函数（executor）。创建新期约必须传入执行器函数作为参数，不然会抛出 SyntaxError。
 
-下面的例子使用一个空函数对象作为执行器函数。
+所以至少也要传入一个空函数：
 
 ```javascript
 let p = new Promise(() => {});
-setTimeout(console.log, 0, p);
-// output： Promise <pending>
 ```
 
-在把一个期约实例传给 console.log()时，控制台输出（因浏览器不同而有差异）表明该实例处于待定（pending）状态。
+执行器函数在构造之后会被异步运行，称为起始函数。起始函数包含两个参数 resolve 和 reject。
+
+resolve 和 reject 都是函数，调用 resolve 代表一切正常，调用 reject 代表出现异常。
+
+```js
+new Promise(function (resolve, reject) {
+  var a = 0;
+  var b = 1;
+  if (b == 0) reject("Divide zero");
+  else resolve(a / b);
+})
+  .then(function (value) {
+    console.log("a / b = " + value);
+  })
+  .catch(function (err) {
+    console.log(err);
+  })
+  .finally(function () {
+    console.log("End");
+  });
+// output:
+// a / b = 0
+// End
+```
 
 ## 期约状态
 
