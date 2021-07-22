@@ -1,16 +1,6 @@
 HTML DOM 使 JavaScript 有能力对 HTML 事件做出反应。
 
-HTML 事件的例子：
-
-- 当用户点击鼠标时
-- 当网页已加载时
-- 当图像已加载时
-- 当鼠标移动到元素上时
-- 当输入字段被改变时
-- 当提交 HTML 表单时
-- 当用户触发按键时
-
-在本例中，当用户在 <h1> 元素上点击时，会改变其内容：
+在本例中，当用户在 \<h1> 元素上点击时，会改变其内容：
 
 ```html
 <!DOCTYPE html>
@@ -43,17 +33,11 @@ HTML 事件的例子：
 
 也可以使用 JavaScript 来向 HTML 分配事件：
 
-```html
-<button onclick="displayDate()">点这里</button>
-```
-
 ```js
 <script>
   document.getElementById("myBtn").onclick=function(){displayDate()};
 </script>
 ```
-
-上面两个例子等价。
 
 # onload 和 onunload 事件
 
@@ -143,12 +127,26 @@ onmouseover 和 onmouseout 事件可用于在用户的鼠标移至 HTML 元素�
   </body>
 </html>
 ```
-onmouseover 和 CSS的hover不一样，不会在鼠标移走后让DOM还原，会永久性改变DOM。
+
+onmouseover 和 CSS 的 hover 不一样，不会在鼠标移走后让 DOM 还原，会永久性改变 DOM。
 
 # onmousedown、onmouseup 以及 onclick 事件
+
 当点击鼠标按钮时，会触发 onmousedown 事件，当释放鼠标按钮时，会触发 onmouseup 事件，最后，当完成鼠标点击时，会触发 onclick 事件。
 
 # 事件属性汇总
+
 上面提到的是常用的事件。
+
+按照类型可分为：
+
+1. 窗口事件（Window Event Attributes）
+2. 表单事件（Form Events）
+3. 键盘事件（Keyboard Events）
+4. 鼠标事件（Mouse Events）
+5. 多媒体事件（Media Events）
+6. 其他事件
+
+具体查看：
 
 https://www.runoob.com/tags/ref-eventattributes.html
