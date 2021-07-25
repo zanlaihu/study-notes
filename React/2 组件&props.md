@@ -1,36 +1,23 @@
-组件可以将 UI 拆分成独立可复用的代码片段。组件接收入参 props 并返回一个 React 元素。
+---
+theme: hydrogen
+---
+组件可以将 UI 拆分成独立可复用的代码片段。
 
-React 元素除了是 DOM 标签，比如\<h1>以外，也可以是用户自定义的组件，比如函数组件、class组件。
+组件接收入参 props 并返回一个 React 元素。
 
 ## 函数组件
 
-JavaScript 函数定义组件：
-
 ```jsx
 function Welcome(props) {
-  return <h1>Hello, {(props, name)}</h1>;
+  return <h1>Hello, {(props.name)}</h1>;
 }
 
 const element = <Welcome name="Sara">
 ```
 
-自定义组件必须大写字母开头(比如 Welcome)，不然会被 React 误认为是原生 DOM 标签。
+自定义组件必须大写字母开头，不然会被 React 误认为是原生 DOM 标签。
 
-当 React 元素为自定义组件时，它会将 JSX 所接收的属性（attributes）和子组件（children）合并成一个 props 对象传递给组件：
-
-```jsx
-function Welcome(props){
-  return <h1>Hello, {props.name}</h1>
-}
-
-const element = <Welcome name="Sara">;
-
-ReactDOM.render(element, document.getElementById('root'));
-```
-
-> 入参并不是必须命名成“props”，可以使用任意合法变量名。
-
-多个函数组件可以组合在一起：
+多个组件可以组合在一起：
 
 ```js
 function Welcome(p) {
@@ -59,10 +46,9 @@ function formatDate(date) {
 
 function Comment(props) {
   return (
-    <div className="Comment">
-      <div className="UserInfo">
+    <div>
+      <div>
         <img
-          className="Avatar"
           src={props.author.avatarUrl}
           alt={props.author.name}
         />
@@ -138,7 +124,7 @@ ReactDOM.render(
 
 ## props 的只读性
 
-入参 props 不能被修改。参考下面这个纯函数一样：
+入参 props 不能被修改。参考下面这个纯函数：
 
 ```jsx
 function sum(a, b) {
@@ -165,3 +151,4 @@ class Welcome extends React.Component {
   }
 }
 ```
+
