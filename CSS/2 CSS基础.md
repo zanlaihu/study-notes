@@ -19,6 +19,9 @@ theme: smartblue
 
 设立这么一套基础样式的价值非常大。即使很多会被继承和覆盖，但有了它，将来的工作就会有条不紊。
 
+
+https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/Getting_started
+
 # ID 和 class 属性
 
 ID 和 class 属性都可以将样式接入到文档上。但是就添加样式而言，两者有重要的区别。
