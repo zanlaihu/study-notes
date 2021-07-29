@@ -29,6 +29,8 @@ li {
 }
 ```
 
+https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/Getting_started
+
 # ID 和 class 属性
 
 ID 和 class 属性都可以将样式接入到文档上。但是就添加样式而言，两者有重要的区别。
