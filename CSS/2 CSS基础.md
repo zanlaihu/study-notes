@@ -31,43 +31,7 @@ li {
 
 https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/Getting_started
 
-# ID 和 class 属性
 
-ID 和 class 属性都可以将样式接入到文档上。但是就添加样式而言，两者有重要的区别。
-
-首先，ID 只能作用于页面的一个元素，而 class 可以在页面元素中重用。还有一些其他区别会在后续说明。
-
-## ID 和 class 命名
-
-### class
-
-命名很简单也很重要，给属性起名可以看出一个开发员是否具有经验。假设给一个列表起名，向下面这样可以简单又明确：
-
-```html
-<ul class="product-list">
-  <li><a href="/product/1">Product1</a></li>
-  <li><a href="/product/2">Product2</a></li>
-  <li><a href="/product/3">Product3</a></li>
-</ul>
-```
-
-这里的 product-list 意味着它是一个商品列表，只要是商品列表都可以使用这个样式。
-
-还有一点很重要，给元素添加类名时，即使类名明确用于某个样式，也不要取诸如 large-centered-list 这样的名字。这个也在后续说明。
-
-### ID
-
-ID 被推荐用来给特定模块添加样式。比如主要商品列表，因为一个页面中通常只有一个主要商品列表。就可以写成下面这样：
-
-```html
-<ul id="primary-product-list" class="product-list">
-  <li><a href="/product/1">Product1</a></li>
-  <li><a href="/product/2">Product2</a></li>
-  <li><a href="/product/3">Product3</a></li>
-</ul>
-```
-
-因为它有同样的 class 属性而获得一样的样式，又可以基于 id 添加额外的样式。不过实际开发不建议用 id 来引入样式。
 
 # 结构化元素
 
