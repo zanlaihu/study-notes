@@ -1,8 +1,11 @@
+---
+theme: hydrogen
+---
 在 CSS 布局中，所有元素都被盒子包围。
 
-# 块级盒子（Block box） 和 内联盒子（Inline box）
+# 块级盒子和内联盒子
 
-CSS 中有两种盒子。它们在页面流（page flow）和元素之间的关系表现不同的行为。
+CSS 中有两种盒子：块级盒子（Block box） 和 内联盒子（Inline box）。它们在页面流（page flow）和元素之间的关系表现不同的行为。
 
 ## 块级盒子
 
@@ -141,3 +144,4 @@ padding属性有：
 # 参考
 
 MDN：https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model
+
