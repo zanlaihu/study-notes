@@ -122,7 +122,20 @@ border 的属性有：
 - border-left-style
 - border-left-color
 
-# 内边距
+## 内边距
+内外距不能为负，必须是0或正值。
+
+padding属性有：
+
+- padding
+- padding-top
+- padding-bottom
+- padding-right
+- padding-left
+
+## display:inline-block
+
+元素可以不换到新行，但又可以设定宽度和高度。
 
 
 # 参考
