@@ -1,5 +1,15 @@
-function Apple() {
-  console.log("123");
+function h(x) {
+  return f(g(x));
 }
 
-Apple();
+function f(x) {
+  return x + 1;
+}
+
+function g(x) {
+  return 2 * x;
+}
+
+const result = h(3);
+
+console.log(result);
