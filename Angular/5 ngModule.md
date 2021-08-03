@@ -27,3 +27,5 @@ const routes: Routes = [
 })
 export class exampleModule {}
 ```
+
+https://angular.io/api/core/NgModule
