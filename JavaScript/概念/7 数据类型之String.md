@@ -1,6 +1,7 @@
 ---
 theme: hydrogen
 ---
+
 # String
 
 字符串表示零或多个 16 位 Unicode 字符序列。
@@ -13,7 +14,6 @@ let name2 = "Mike";
 let name3 = `Mike`;
 ```
 
-
 字符串一旦创建就不可修改，这里的不可修改并不是说不能拼接：
 
 ```javascript
@@ -25,21 +25,21 @@ lang = lang + "Script";
 
 # 字符字面量——可以被识别的特殊字符
 
-|字面量|含义|
-|--|--|
-|\n|换行|
-|\t|制表|
-|\b|退格|
-|\r|回车|
-|\f|换页|
-|\\\ |反斜杠\|
-|\\' |单引号标识的字符串内部使用，如'He said, \'hey.\''|
-|\\" |同上|
-|\\` |同上|
-|\xnn |以十六进制编码 nn 表示的字符（其中 n 是十六进制数字 0~F），例如\x41 等于"A"|
-|\unnnn |以十六进制编码 nnnn 表示的 Unicode 字符（其中 n 是十六进制数字 0~F），例如\u03a3 等于希腊字符"Σ"|
+| 字面量 | 含义                                                                                             |
+| ------ | ------------------------------------------------------------------------------------------------ |
+| \n     | 换行                                                                                             |
+| \t     | 制表                                                                                             |
+| \b     | 退格                                                                                             |
+| \r     | 回车                                                                                             |
+| \f     | 换页                                                                                             |
+| \\\    | 反斜杠\|                                                                                         |
+| \\'    | 单引号标识的字符串内部使用，如'He said, \'hey.\''                                                |
+| \\"    | 同上                                                                                             |
+| \\`    | 同上                                                                                             |
+| \xnn   | 以十六进制编码 nn 表示的字符（其中 n 是十六进制数字 0~F），例如\x41 等于"A"                      |
+| \unnnn | 以十六进制编码 nnnn 表示的 Unicode 字符（其中 n 是十六进制数字 0~F），例如\u03a3 等于希腊字符"Σ" |
 
-> 注意！！！即使转义字符很长，也只算一个字符。
+> 即使转义字符很长，也只算一个字符。
 >
 > 比如：let text = "This is the letter sigma: \u03a3."; 的长度是 28，即使包含 6 长度的转义序列。
 
@@ -72,14 +72,13 @@ console.log(myMultiLineString === myMultiLinetemplateLiteral); // true
 ```javascript
 let myTemplateLiteral = `first line
 second line`;
-console.log(myTemplateLiteral.length); 
+console.log(myTemplateLiteral.length);
 // output：47。因为第一行换行符之后有25 个空格符
-
 
 let secondTemplateLiteral = `
 first line
 second line`;
-console.log(secondTemplateLiteral[0] === "\n"); 
+console.log(secondTemplateLiteral[0] === "\n");
 // output：true。因为这个模板字面量以一个换行符开头
 ```
 
@@ -234,7 +233,7 @@ printRaw`\u00A9${"and"}\n`;
 
 ## .toString()
 
->null 和 undefined 不能使用这个方法。
+null 和 undefined 不能使用这个方法。
 
 ```javascript
 let age = 11;
@@ -267,18 +266,18 @@ console.log(String(mess)); // "undefined"
 console.log(String(mess1)); //未声明的undefined, 得到ReferenceError
 ```
 
-# 字符串长度
-## String.length
-返回一个number值。
+# 字符串长度 String.length
 
 # 截取字符串
 
 ## String.prototype.slice()
-接收两个index参数：开始，结束。
+
+接收两个 index 参数：开始，结束。
 
 如果未传入结束，默认截到末尾。
+
 ```js
-const str = 'The quick brown fox jumps over the lazy dog.';
+const str = "The quick brown fox jumps over the lazy dog.";
 
 console.log(str.slice(31));
 // expected output: "the lazy dog."
@@ -295,15 +294,14 @@ console.log(str.slice(-9, -5));
 
 ## String.prototype.substring()
 
-和slice()类似。
-1. 负数参数识别成0。
-2. 若开始大于结束，则两参数对换。
+和 slice()类似。但是会将负数参数直接识别成 0
 
 ## String.prototype.substr()
 
 接收两个参数：开始，返回的字符串个数
 
 第二个参数未传入时，默认截到末尾。第二个参数超过字符串长度时，默认截到末尾。
+
 ```js
 const str = 'The quick brown fox jumps over the lazy dog.';
 

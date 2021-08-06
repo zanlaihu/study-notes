@@ -1,5 +1,5 @@
 ---
-theme: smartblue
+theme: hydrogen
 ---
 
 # Number
@@ -8,11 +8,7 @@ Number 类型使用 IEEE 754 格式表示整数和浮点数。
 
 ### 十进制整数
 
-最基本的是十进制整数。整数也可以用八进制和十六进制字面量表示。
-
-```javascript
-let num = 8;
-```
+最基本的是十进制整数。
 
 ### 八进制字面量
 
@@ -64,9 +60,9 @@ let num = 3125e-3; // 3.125
 
 ECMAScript 会默认将小数点后至少 6 个 0 的浮点数转换为科学计数法。（例如，0.000 000 3） 会被转换为 3e-7。
 
-### 浮点精确度为 17 位小数
+- 浮点精确度为 17 位小数
 
-### 浮点计算中可能出错
+浮点计算中可能出错
 
 比如 0.1 加 0.2 等于 0.300 000 000 000 000 04 而不是 0.3。
 
@@ -84,7 +80,7 @@ ECMAScript 会默认将小数点后至少 6 个 0 的浮点数转换为科学计
 
 当数值超过范围时，太大的会被转换成一个特殊的 Infinity（无穷值），太小的就是-Infinity（负无穷值）。Infinity 和-Infinity 不能被计算，他们没有可用于计算的数值表示形式。
 
-### 使用 isFinite()，可以判断一个数是不是无限。
+使用 isFinite()，可以判断一个数是不是无限。
 
 ```javascript
 let num = Number.MAX_VALUE;
@@ -94,9 +90,7 @@ console.log(isFinite(num)); //true
 用 Number.NEGATIVE_INFINITY 和 Number.POSITIVE_INFINITY 也可以获
 取正、负 Infinity。这两个属性包含的值分别就是-Infinity 和 Infinity。
 
-### 计算中得到无限值
-
-如果分子是非 0 值，分母是 0 或-0，会返回 Infinity 或-Infinity：
+除法中，如果分子是非 0 值，分母是 0 或-0，会返回 Infinity 或-Infinity：
 
 ```javascript
 console.log(5 / 0); // Infinity
@@ -138,11 +132,9 @@ console.log(isNaN("blue")); // true，不可以转换为数值
 console.log(isNaN(true)); // false，可以转换为数值1
 ```
 
-# 数值转换
+## 数值转换
 
-Number()、parseInt()、parseFloat()可以将非数值的数据转换为数值。
-
-## Number()
+### Number()
 
 Number()函数首字母 N 必须大写。它首先判断参数类型，针对不同类型基于如下规则进行转换：
 
@@ -171,7 +163,7 @@ let num3 = Number("000011"); // 11
 let num4 = Number(true); // 1
 ```
 
-## parseInt()
+### parseInt()
 
 parseInt()的规则比较简单：
 
@@ -212,7 +204,7 @@ let num7 = parseInt("10", 16); // 16，按十六进制解析
 
 推荐始终传入第二个参数
 
-## parseFloat()
+### parseFloat()
 
 parseFloat()也从头开始检测，并在检测到无效字符后停止。
 

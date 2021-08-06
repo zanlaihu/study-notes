@@ -6,23 +6,18 @@ theme: smartblue
 
 ECMAScript 中的对象是一组数据和功能的无序集合，内容就是键值对，值可以是数据或者函数。
 
-Object 是派生其他对象的基类。派生出的对象具有 Object 的所有属性和方法。
+Object 是派生其他对象的基类。派生出的对象具有 Object 所有属性和方法。
 
 每个 Object 实例都有如下属性和方法：
 
-1. constructor: 用于创建当前对象的函数。在前面的例子中，这个属性的值就是 Object()函数。
-
-2. hasOwnProperty(propertyName):用于判断当前对象实例（不是原型）上是否存在给定的属性。要检查的属性名必须是字符串（如 0.hasOwnProperty("name")）或符号。
-
+1. constructor: 用于创建当前对象的函数。
+2. hasOwnProperty(propertyName):用于判断当前对象实例（不是原型）上是否存在给定的属性。属性名必须是字符串。
 3. isPrototypeOf(object): 用于判断当前对象是否是另一个对象的原型。
-
 4. propertyIsEnumerable(propertyName): 用于判断给定的属性是否可以使用 for-in 语句枚举。与 hasOwnProperty()一样，属性名必须是字符串。
-
 5. toLocaleString(): 返回对象的字符串表示，该字符串反映对象所在的本地化执行环境。
-
 6. toString(): 返回对象的字符串表示。
-
 7. valueOf(): 返回对象对应的字符串、数值或布尔值。通常与 toString()的返回值相同。
+
 # 创建对象
 
 ## new
@@ -34,7 +29,7 @@ let person = new Object();
 在没有参数的情况下也可以省略括号，合法但不推荐：
 
 ```javascript
-let person = new Object; 
+let person = new Object();
 ```
 
 ## {}
@@ -110,7 +105,7 @@ let Person = function (name, age, job) {
 
 let person = new Person("Nicholas", 29, "Software Engineer");
 // 在实例化时，如果不想传参数，那么构造函数后面的括号可不加。
-let person1 = new Person;
+let person1 = new Person();
 ```
 
 构造函数和工厂模式有如下区别:
@@ -121,7 +116,7 @@ let person1 = new Person;
 
 按照惯例，构造函数名称的首字母要大写，非构造函数则以小写字母开头。这有助于区分构造函数和普通函数。
 
-在构造过程中，使用new 操作符发生了如下步骤：
+在构造过程中，使用 new 操作符发生了如下步骤：
 
 1. 在内存中创建一个新对象。
 2. 这个新对象内部的[[Prototype]]特性被赋值为构造函数的 prototype 属性。
@@ -135,7 +130,7 @@ let person1 = new Person;
 console.log(person.constructor == Person); // true
 ```
 
->constructor 用于标识对象类型。
+> constructor 用于标识对象类型。
 
 所有自定义对象都继承自 Object，所以 person 也是 Object 的实例：
 
@@ -184,11 +179,12 @@ function Person(name, age, job) {
 }
 ```
 
-所以 person1 和 person2的sayName是不全等的：
+所以 person1 和 person2 的 sayName 是不全等的：
 
 ```javascript
 console.log(person1.sayName === person2.sayName); // false
 ```
+
 ### 解决方法
 
 把函数定义转移到构造函数外部（this 对象可以把函数与对象的绑定推迟到运行时）：
@@ -209,6 +205,7 @@ function sayName() {
 但是如果需要多个方法，就要在全局作用域定义多个函数。这会导致代码不能很好地聚集在一起。
 
 # 原型模式
+
 原型模式解决了上面的问题。
 
 每个函数都会创建一个 prototype 属性，这个属性是一个对象，包含应该由特定引用类型的实例共享的属性和方法。这个对象就是通过调用构造函数创建的对象的原型。
@@ -217,7 +214,6 @@ function sayName() {
 
 ```javascript
 function Person() {}
-
 Person.prototype.name = "Klaus";
 Person.prototype.sayName = function () {
   console.log(this.name);
@@ -226,11 +222,7 @@ Person.prototype.sayName = function () {
 let person1 = new Person();
 ```
 
-使用原型模式创建的 person1 和 person2 具有：
-
-```
-console.log(person1.sayName == person2.sayName); // true
-```
+使用原型模式创建的 person1 和 person2 的 sayname()是同一个。
 
 function Person(){} 也可以写成：
 
@@ -292,3 +284,5 @@ console.log(Object.prototype);
 ```
 
 ## 原型层级
+
+（未完）

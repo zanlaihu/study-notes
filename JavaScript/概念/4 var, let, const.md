@@ -1,34 +1,34 @@
 ---
 theme: hydrogen
 ---
+
 # 变量声明
 
 ECMAScript 中的变量是松散类型，即变量可以保存任何类型的数据。每个变量只是一个用于保存值的命名占位符。
 
-有三个声明变量的关键字：var, const, let。
 > 严格模式下，不能定义名为 eval 和 arguments 的变量。
+
 # var
-```javascript
-var message;
-```
-定义了一个名为 message 的变量，可以用它保存任何类型的值。
+
+可以保存任何类型的值。
 
 ECMAScript 实现变量初始化，因此可以同时定义变量并设置它的值。
+
 ```javascript
 var message = "hi";
 ```
 
-
 定义好之后，不仅可以改变值，还可以改变类型。这样虽然合法，但不推荐，也很少看到程序员会这样做。
+
 ```javascript
 var message = "hi";
 message = 100;
 ```
 
-
->不初始化的情况下，变量会保存一个特殊值 undefined。
+> 不初始化的情况下，变量会保存一个特殊值 undefined。
 
 ### 可以一次声明多个变量：
+
 因为 ECMAScript 是松散类型的，所以使用不同数据类型初始化也可以用一条语句。
 
 ```javascript
@@ -36,9 +36,6 @@ var message = "hi",
   found = "false",
   age = 29;
 ```
-
-
-
 
 ### var 可以重复声明：
 
@@ -48,7 +45,7 @@ var age = 26;
 var age = 36;
 ```
 
-## var 声明作用域
+### var 声明作用域
 
 使用 var 声明的变量会成为包含它的函数的局部变量。比如，在一个函数内部 var 一个变量，这个变量将在函数退出时被销毁。
 
@@ -72,7 +69,7 @@ console.log(message);
 
 > 要慎用这种方法。在严格模式下，会抛出 referenceError。并且也会让人困惑是故意而为之，还是不小心写错了。
 
-## var 变量声明提升机制（hoist）
+### var 变量声明提升机制（hoist）
 
 ```javascript
 console.log(age);
@@ -96,7 +93,6 @@ function test() {
 }
 ```
 
-
 # let
 
 let 声明的是块作用域，而 var 声明的是函数作用域。这是他们两个最明显的区别。
@@ -119,7 +115,7 @@ console.log(name); // undefined
 
 用 let 声明的变量只能在 if 块内使用。它的作用域范围比 var 小，所以自然也不能在函数外被使用。
 
-####  let 不允许重复声明，这个特性被称为声明屏蔽：
+### let 不允许重复声明，这个特性被称为声明屏蔽：
 
 ```javascript
 let age;
@@ -137,18 +133,11 @@ if (true) {
 }
 ```
 
-## let 没有变量声明提升，只有暂时性死区
+### let 没有变量声明提升，只有暂时性死区
 
-不能先使用再声明，下面这样报错
+在 let 声明之前的执行瞬间被称为暂时性死区(temporal dead zone)，会抛出 ReferenceError。
 
-```javascript
-console.log(age);
-let age = 27;
-```
-
-在 let 声明之前的执行瞬间被称为暂时性死区(temporal dead zone)，会抛出 ReferenceError 这个错误。
-
-## let 全局声明的变量不会成为window 对象的属性
+### let 全局声明的变量不会成为 window 对象的属性
 
 这与 var 不同：
 
@@ -160,7 +149,7 @@ let age = 26;
 console.log(window.age); // undefined
 ```
 
-## let 不能用条件声明
+### let 不能用条件声明
 
 ```javascript
 if (typeof name === "undefined") {
@@ -172,7 +161,7 @@ if (typeof name === "undefined") {
 
 > 不能使用条件声明其实是一件好事，因为条件声明是一种反模式。它让程序更难理解和维护。本来也有更好的方式去代替它。
 
-## for 循环中的 let
+### for 循环中的 let
 
 使用 var 声明的迭代变量会渗透到循环体外部：
 
@@ -215,7 +204,7 @@ for (var i = 0; i < 5; i++) {
 }
 ```
 
-或使用let 声明迭代变量。这样JavaScript 会在后台为每个迭代循环声明一个新的迭代变量。所以它会有 5 个 i，值分别是 0、1、2、3、4，每个 setTimeout 引用的都是不同的变量实例。
+或使用 let 声明迭代变量。这样 JavaScript 会在后台为每个迭代循环声明一个新的迭代变量。所以它会有 5 个 i，值分别是 0、1、2、3、4，每个 setTimeout 引用的都是不同的变量实例。
 
 ```javascript
 for (let i = 0; i < 5; i++) {
@@ -227,19 +216,13 @@ for (let i = 0; i < 5; i++) {
 
 # const
 
-const 与 let 基本相同，唯一重要区别是
-#### 它声明变量时必须同时初始化变量，且声明后的值不能再修改。
+const 与 let 基本相同，唯一重要区别是它声明变量时必须同时初始化变量，且声明后的值不能再修改。
 
 const 也不允许重复声明。
 
 const 声明的作用域也是块。
 
 但是 const 只限制它指向的变量。也就是说，如果 const 声明了一个对象，那么修改对象内的属性是合法的。
-
-```javascript
-const person = {};
-person.name = "Matt";
-```
 
 const 一般不用来声明迭代变量，因为它不会被修改。但是在 for-in 和 for-of 中却是有意义的：
 
@@ -262,18 +245,3 @@ for (const value of [1, 2, 3, 4, 5]) {
 }
 // 1 2 3 4 5
 ```
-
-# 推荐的声明风格
-
-ECMAScript6 增加 let 和 const 支持更精确地声明作用域和语义。
-
-天下苦 var 久矣，
-是时候抛弃它了。
-
-### 1. 不使用 var
-
-   有了 let 和 const 之后，var 已经不再被需要。Eslint 代码规范，也要求开发者不要使用 var，并添加了将 var 自动转变成 let 或 const 的功能。
-### 2. const 优先，let 次之
-
-   const 声明的变量在浏览器运行时强制保持不变，方便静态代码分析工具提前发现不合法的赋值操作。对于开发者，也可以更容易发现意外赋值导致的非预期行为。
-
