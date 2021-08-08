@@ -1,6 +1,6 @@
-let age = 29;
-const sayAge = function(){
-    console.log(age);
-};
+const arr = Array(9).fill(null);
 
-sayAge(); // undefined
+const arrs = arr.slice();
+
+console.log(arr);
+console.log(arrs);
