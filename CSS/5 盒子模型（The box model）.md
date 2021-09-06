@@ -1,10 +1,8 @@
 ---
 theme: smartblue
 ---
-
 # 块级盒子和内联盒子
-
-在了解盒子模型前要先说一下 CSS 的两种盒子。
+CSS有两种盒子。
 
 - 块级盒子（Block box）
 - 内联盒子（Inline box）
@@ -30,8 +28,7 @@ theme: smartblue
 用做链接的 \<a> 元素、 \<span>、 \<em> 以及 \<strong> 都是默认处于 inline 状态的。
 
 ## 介于两者之间的盒子
-
-display:inline-block
+display:inline-block 
 
 元素可以不换到新行，但又可以设定宽度和高度。
 
@@ -39,14 +36,14 @@ display:inline-block
 
 外部显示类型可以控制盒子是块级盒子还是内联盒子。比如，display:inlien、display:block、display:inline-block 。
 
-内部显示类型可以控制盒子内部元素显示类型。比如，display:flex 控制盒子内元素为 flex 类型。
+内部显示类型可以控制盒子内部元素显示类型。比如，display:flex控制盒子内元素为flex类型。
+
 
 # 盒模型 The Box Model
 
 完整的盒模型应用于块级盒子，内联盒子只能使用部分内容。
 
 盒模型也有两种：
-
 - 标准盒模型
 - 替代盒模型
 
@@ -72,11 +69,11 @@ html {
 }
 ```
 
-## margin
+## margin 
 
 外边距会把其他元素从盒子身边推开。外边距也可以设置为负值，这会导致和其他内容重叠。无论是标准还是替代盒模型，外边距总是在计算可见部分后添加。
 
-margin 属性：
+margin属性：
 
 - margin
 - margin-top
@@ -127,10 +124,9 @@ border 的属性有：
 - border-left-color
 
 ## 内边距
+内外距不能为负，必须是0或正值。
 
-内外距不能为负，必须是 0 或正值。
-
-padding 属性有：
+padding属性有：
 
 - padding
 - padding-top
@@ -138,6 +134,10 @@ padding 属性有：
 - padding-right
 - padding-left
 
+
+
+
 # 参考
 
 MDN：https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model
+
