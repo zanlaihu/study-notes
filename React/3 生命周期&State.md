@@ -1,48 +1,35 @@
-之前通过定时调用 ReactDOM.render()方法来更新元素。
+---
+theme: hydrogen
+---
+之前通过定时调用 ReactDOM.render()方法来更新元素。现在为 Clock 组件设置自己的计时器：
 
-现在来封装 Clock 组件，为它设置自己的计时器并每秒更新一次：
-
-先封装外观：
-
-```jsx
-function Clock(props) {
-  return (
-    <div>
-      <h1>Hello,world!</h1>
-      <h1>It is {props.date.toLocaleTimeString()}.</h1>
-    </div>
-  );
-}
-
+之前的版本：
+```js
 function tick() {
-  ReactDOM.render(<Clock date={new Date()} />, document.getElementById("root"));
+  const element = (
+      <h1>It is {new Date().toLocaleTimeString()}.</h1>
+  );
+  ReactDOM.render(element, document.getElementById("root"));
 }
 
 setInterval(tick, 1000);
 ```
 
-接下来需要添加 state 来让组件自我更新。为了使用 state，需要将函数组件转换成 class 组件。
+
+将函数组件转换成 class 组件，添加 state 让组件自我更新。
 
 1. 创建一个同名的 ES6 class，继承 React.Component。
 2. 添加一个空的 render()方法。
-3. 将函数体移动到 render()方法内。
+3. 将需要渲染的元素移动到 render()方法的return内。
 4. 在 render()方法中使用 this.props 替换 props。
-5. 删除剩余的空函数声明。
 
 ```jsx
 class Clock extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Hello,world!</h1>
-        <h1>It is {this.props.date.toLocaleTimeString()}.</h1>
-      </div>
+      <h1>It is {new Date().toLocaleTimeString()}.</h1>
     );
   }
-}
-
-function tick() {
-  ReactDOM.render(<Clock date={new Date()} />, document.getElementById("root"));
 }
 ```
 
@@ -259,3 +246,7 @@ function App() {
 
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
+
+# React 生命周期
+![React生命周期钩子.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c600d017bbea41c29eb5d7570673689c~tplv-k3u1fbpfcp-watermark.image)
+
