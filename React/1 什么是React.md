@@ -1,7 +1,7 @@
 ---
 theme: hydrogen
 ---
-React 是用于构建用户界面的 JavaScript 库， 起源于 Facebook 的内部项目，因为该公司对市场上所有 JavaScript MVC 框架都不满意，就自己写了一套用来架设 Instagram 的网站。做出来以后，发现这套东西很好用，就在 2013 年 5 月开源了。它具有渐进适配的特性，可以按需引入。
+React 是用于构建用户界面的 JavaScript 库，它具有渐进适配的特性，可以按需引入。
 
 一个完整的 React 工具链包含：
 
@@ -59,19 +59,10 @@ const element = <div tabIndex="0"></div>;
 const element = <img src={user.url}></img>;
 ```
 
-因为 JSX 语法上更接近 JavaScript 而不是 HTML，所以 React DOM 使用驼峰式命名来定义属性，比如 tabindex 变成 tabIndex、class 变成 className。
+React DOM 使用驼峰式命名来定义属性，比如 tabindex 变成 tabIndex、class 变成 className。
 
 
-一个 JSX 标签内能够包含多个子元素：
 
-```js
-const element = (
-  <div>
-    <h1>Hello!</h1>
-    <h2>Good to see you here.</h2>
-  </div>
-);
-```
 
 ## JSX 引入图片
 
@@ -138,7 +129,7 @@ React DOM 更新 DOM 来与 React 元素保持一致。
 <div id="root"></div>
 ```
 
-该节点的内容都由 React DOM 管理。React通过将React元素渲染到根DOM节点来更新UI。仅使用 React 构建的应用一般只有一个根 DOM 节点。如果成型的网站引入 React，可能包含多个。
+该节点的内容都由 React DOM 管理。React将React元素渲染到根节点来更新UI。仅使用 React 构建的应用一般只有一个根 DOM 节点。如果成型的网站引入 React，可能包含多个。
 
 类似 Angular 的：\<app-root>\</app-root>
 
@@ -150,16 +141,13 @@ ReactDOM.render(reactElement, document.getElementById("root"));
 ```
 
 ## 更新已渲染的元素
-React元素是不可变对象。一旦创建就无法更改子元素或属性。所以只能创建一个新元素来替代，从而达到更新的目的。
+React元素是不可变对象，一旦创建就无法更改子元素或属性。所以只能创建一个新元素来替代，从而达到更新的目的。
 
 考虑一个计时器例子:
 ```js
 function tick() {
   const element = (
-    <div>
-      <h1>Hello, world!</h1>
-      <h2>It is {new Date().toLocaleTimeString()}.</h2>
-    </div>
+      <h1>It is {new Date().toLocaleTimeString()}.</h1>
   );
   ReactDOM.render(element, document.getElementById("root"));
 }
