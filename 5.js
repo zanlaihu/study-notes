@@ -1,6 +1,39 @@
-const arr = Array(9).fill(null);
+function keyPath(paths, obj) {
+  if (paths === undefined || obj === undefined) {
+    return undefined;
+  }
 
-const arrs = arr.slice();
+  let result = obj[paths[0]];
+  if (paths.length === 1 || result === undefined) {
+    return result;
+  }
 
-console.log(arr);
-console.log(arrs);
+  for (let i = 1; i < paths.length; i++) {
+    if (result.hasOwnProperty(paths[i])) {
+      result = result[paths[i]];
+    } else {
+      return undefined;
+    }
+  }
+
+  return result;
+}
+
+/**
+ *
+ * @param paths
+ * @param obj
+ * @returns {*}
+ *
+ */
+const obj = {
+  a: {
+    b: {
+      c: {
+        d: 3,
+      },
+    },
+  },
+};
+
+console.log(keyPath());
