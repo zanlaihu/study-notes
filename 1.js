@@ -1,40 +1,13 @@
-/**
- * @param {string} digits
- * @return {string[]}
- */
-var letterCombinations = function (digits) {
-  if (digits.length === 0) {
-    return [];
-  }
+let myFirstPromise = new Promise(function(resolve, reject){
+  //当异步代码执行成功时，我们才会调用resolve(...), 当异步代码失败时就会调用reject(...)
+  //在本例中，我们使用setTimeout(...)来模拟异步代码，实际编码时可能是XHR请求或是HTML5的一些API方法.
+  setTimeout(function(){
+      resolve({a:"123"}); //代码正常执行！
+  }, 250);
+});
 
-  const numToWords = {
-    2: "abc",
-    3: "def",
-    4: "ghi",
-    5: "jkl",
-    6: "mno",
-    7: "pqrs",
-    8: "tuv",
-    9: "wxyz",
-  };
-
-  list = [];
-
-  function dfs(tmp, index) {
-    if (index === digits.length) {
-      list.push(tmp);
-      return;
-    }
-
-    const letters = map[digits[index]];
-    for (const letter of letters) {
-      dfs(tmp + letter, index + 1);
-    }
-  }
-
-  dfs("", 0);
-
-  return list;
-};
-
-letterCombinations("234");
+myFirstPromise.then(function(successMessage){
+  //successMessage的值是上面调用resolve(...)方法传入的值.
+  //successMessage参数不一定非要是字符串类型，这里只是举个例子
+  console.log("Yay! " + successMessage.a);
+});
